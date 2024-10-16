@@ -28,3 +28,4 @@ router.post('/login', async (req, res) => {
     // Aquí podrías guardar la sesión del usuario o generar un token JWT
     res.redirect('/');
 });
+module.exports = router;
