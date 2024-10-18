@@ -17,7 +17,9 @@ app.set('view engine', 'pug');
 // Rutas
 const productoRoutes = require('./routes/productos');
 const usuarioRoutes = require('./routes/usuarios');
+const carritoRoutes = require('./routes/carrito')
 app.use('/productos', productoRoutes);
+app.use('/carrito', carritoRoutes)
 app.use('/', usuarioRoutes)
 
 // Página principal

@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title Carrito de Compras
+  body
+    h1 Carrito de Compras
+
+    if carrito.length > 0
+      table
+        thead
+          tr
+            th Producto
+            th Cantidad
+            th Precio
+            th Subtotal
+        tbody
+          each producto in carrito
+            tr
+              td= producto.nombre
+              td= producto.cantidad
+              td= `$${producto.precio}`
+              td= `$${producto.precio * producto.cantidad}`
+      hr
+      h2 Total: 
+      - let total = carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
+      p= `$${total}`
+
+      a(href="/productos") Volver a la tienda
+    else
+      p No hay productos en el carrito.
+      a(href="/productos") Volver a la tienda

@@ -24,7 +24,27 @@ async function guardarProductos(productos) {
   }
 }
 
+let carrito = [];
+
+function agregarProductoAlCarrito(producto) {
+    const existeEnCarrito = carrito.find(p => p.id === producto.id);
+    
+    if (existeEnCarrito) {
+        // Si el producto ya está en el carrito, incrementar la cantidad
+        existeEnCarrito.cantidad += 1;
+    } else {
+        // Si no está, agregar el producto al carrito con cantidad inicial 1
+        carrito.push({ ...producto, cantidad: 1 });
+    }
+}
+
+function obtenerCarrito() {
+    return carrito;
+}
+
 module.exports = {
   leerProductos,
-  guardarProductos
+  guardarProductos,
+  agregarProductoAlCarrito,
+  obtenerCarrito
 };
