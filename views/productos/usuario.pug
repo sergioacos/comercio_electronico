@@ -11,6 +11,18 @@ html
       //- .text-end.mb-3
         a.btn.btn-success(href="/productos/nuevo") Añadir Nuevo Producto
 
+      //- Formulario para filtrar por categoría
+      form(method="GET", action="/productos", class="mb-4")
+        .input-group
+          select(name="categoria", class="form-select", onchange="this.form.submit()")
+            option(value="", selected=(categoria === "")) Todas las categorías
+            option(value="Básicos", selected=(categoria === "Básicos")) Básicos
+            option(value="Calzado", selected=(categoria === "Calzado")) Calzado
+            option(value="Accesorios", selected=(categoria === "Accesorios")) Accesorios
+            option(value="Abrigos", selected=(categoria === "Abrigos")) Abrigos
+            option(value="Deportiva", selected=(categoria === "Deportiva")) Deportiva
+          
+
       //- Mostrar productos en un grid utilizando cards de Bootstrap
       .row.row-cols-1.row-cols-md-3.g-4
         each producto in productos
