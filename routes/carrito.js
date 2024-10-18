@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { leerProductos} = require('../data/db');
+const { leerProductos, obtenerCarrito, agregarProductoAlCarrito} = require('../data/db');
 
 // Añadir un producto al carrito
-router.post('/:id/agregar-carrito', async (req, res) => {
+router.post('/productos/:id/agregar-carrito', async (req, res) => {
     const { id } = req.params;
     const productos = await leerProductos();
     const producto = productos.find(p => p.id === parseInt(id));
@@ -15,13 +15,13 @@ router.post('/:id/agregar-carrito', async (req, res) => {
     // Agregar el producto al carrito
     agregarProductoAlCarrito(producto);
 
-    res.redirect('/carrito');  // Redirigir a la vista del carrito o a donde prefieras
+    res.redirect('/productos');  // Redirigir a la vista del carrito o a donde prefieras
 });
 
 // Mostrar el carrito
 router.get('/carrito', (req, res) => {
     const carrito = obtenerCarrito();
-    res.render('carrito/carrito', { carrito });
+    res.render('carrito/carritoActual', { carrito });
 });
 
 module.exports = router;

@@ -8,6 +8,10 @@ router.get('/login', (req, res) => {
     res.render('usuarios/login');
 });
 
+router.get('/registro',async (req, res) => {
+  res.render('usuarios/registro'); // Redirigimos al panel de usuario
+})
+
 // Procesar inicio de sesión
 // router.post('/login', async (req, res) => {
 //     const { email, password } = req.body;
@@ -39,6 +43,8 @@ router.post('/login',async (req, res) => {
   } else {
     res.send('Credenciales incorrectas'); // Si las credenciales son incorrectas, enviamos un mensaje
   }
-})
+});
+
+
 
 module.exports = router;
