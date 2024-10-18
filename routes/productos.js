@@ -5,13 +5,21 @@ const { leerProductos, guardarProductos } = require('../data/db');
 // Mostrar todos los productos
 router.get('/', async (req, res) => {
     const productos = await leerProductos();
-    res.render('productos/index', { productos });
+    res.render('productos/usuario', { productos });
 });
+
 // Mostrar formulario para crear un nuevo producto
 router.get('/nuevo', (req, res) => {
     res.render('productos/nuevo');
 });
-// Añadir un nuevo producto
+// Mostrar productos al usuario
+router.get('/admin', async (req, res) => {
+    const productos = await leerProductos();
+    res.render('productos/index', { productos });
+});
+
+
+// Añadir un nuevo producto 
 router.post('/nuevo', async (req, res) => {
     const { nombre, precio, categoria, descripcion, stock } = req.body;
     let productos = await leerProductos();

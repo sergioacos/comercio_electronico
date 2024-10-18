@@ -14,13 +14,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 
-
-
 // Rutas
 const productoRoutes = require('./routes/productos');
 const usuarioRoutes = require('./routes/usuarios');
 app.use('/productos', productoRoutes);
 app.use('/', usuarioRoutes)
+
 // Página principal
 app.get('/', (req, res) => {
     res.render('index', { titulo: 'Comercio Electrónico' });
