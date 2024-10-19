@@ -38,6 +38,10 @@ app.get('/', (req, res) => {
     res.render('index', { titulo: 'Comercio Electrónico' });
 });
 
+app.use((req, res) => {
+    res.status(404).render('errores/404', { titulo: 'Página no encontrada' }); 
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
 });

@@ -98,6 +98,20 @@
           "cantidad": 2
         }
       ]
+    },
+    {
+      "fecha": "2024-10-19T23:14:35.291Z",
+      "productos": [
+        {
+          "id": 3,
+          "nombre": "Sudadera con Capucha",
+          "precio": 30,
+          "categoria": "Básicos",
+          "descripcion": "Sudadera de felpa con capucha.",
+          "stock": 75,
+          "cantidad": 1
+        }
+      ]
     }
   ]
 }
