@@ -28,9 +28,9 @@ html
 
                 //- Botones para editar o eliminar el producto
                 .d-flex.justify-content-between.mt-3
-                  //- a.btn.btn-primary(href=`/productos/${producto.id}/editar`) Editar
-                  //- form(action=`/productos/${producto.id}/eliminar` method="POST")
-                button.btn.btn-primary(type="submit") Agregar al carrito
+                  form(action=`/carrito/productos/${producto.id}/agregar-carrito/` method="POST")
+                    button.btn.btn-primary(type="submit") Agregar al Carrito
+                
 
       //- Botón para volver a la página de inicio
       .mt-5.text-center
