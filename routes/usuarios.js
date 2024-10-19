@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs'); // Para hashear contraseñas
 const router = express.Router();
 //const { leerUsuarios } = require('../data/db-usuarios'); // Simula un archivo JSON para usuarios
 
+
 // Mostrar el formulario de login
 router.get('/login', (req, res) => {
     res.render('usuarios/login');

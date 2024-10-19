@@ -1,0 +1,33 @@
+{
+  "name": "usuario",
+  "pedidos": [
+    {
+      "fecha": "2024-10-19T21:59:59.684Z",
+      "productos": [
+        {
+          "id": 2,
+          "nombre": "Pantalón Jean",
+          "precio": 40,
+          "categoria": "Básicos",
+          "descripcion": "Jean clásico con ajuste cómodo.",
+          "stock": 50,
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-19T22:02:02.517Z",
+      "productos": [
+        {
+          "id": 2,
+          "nombre": "Pantalón Jean",
+          "precio": 40,
+          "categoria": "Básicos",
+          "descripcion": "Jean clásico con ajuste cómodo.",
+          "stock": 50,
+          "cantidad": 1
+        }
+      ]
+    }
+  ]
+}

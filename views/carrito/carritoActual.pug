@@ -25,6 +25,9 @@ html
       - let total = carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
       p= `$${total}`
 
+      form(action="/carrito/finalizar-pedido" method="POST")
+        button.btn.btn-primary(type="submit") Finalizar Pedido
+
       a(href="/productos") Volver a la tienda
     else
       p No hay productos en el carrito.

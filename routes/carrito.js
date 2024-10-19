@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { leerProductos, obtenerCarrito, agregarProductoAlCarrito} = require('../data/db');
+const { leerProductos, obtenerCarrito, agregarProductoAlCarrito, guardarPedido, leerUsuario} = require('../data/db');
 
 // Añadir un producto al carrito
 router.post('/productos/:id/agregar-carrito', async (req, res) => {
@@ -22,6 +22,34 @@ router.post('/productos/:id/agregar-carrito', async (req, res) => {
 router.get('/', (req, res) => {
     const carrito = obtenerCarrito();
     res.render('carrito/carritoActual', { carrito });
+});
+
+// Finalizar el pedido y guardarlo para el único usuario
+router.post('/finalizar-pedido', async (req, res) => {
+    const carrito = obtenerCarrito();
+
+    if (!carrito.length) {
+        return res.status(400).send('El carrito está vacío.');
+    }
+
+    // Guardar el pedido del usuario único
+    await guardarPedido(carrito);
+
+    // Limpiar el carrito después de finalizar el pedido
+    carrito.length = 0; // Esto vacía el carrito
+
+    res.redirect('/carrito');
+});
+
+// Mostrar los pedidos del usuario
+router.get('/pedidos', async (req, res) => {
+    const usuario = await leerUsuario();
+
+    if (!usuario.pedidos.length) {
+        return res.render('pedidos/pedidos', { pedidos: [], mensaje: "No hay pedidos realizados." });
+    }
+
+    res.render('pedidos/pedidos', { pedidos: usuario.pedidos });
 });
 
 //module.exports ={router,carrito} ;

@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title Pedidos de Usuario
+  body
+    h1 Pedidos Realizados
+
+    if mensaje
+      p= mensaje
+      a(href="/productos") Volver a la tienda
+    else
+      each pedido, index in pedidos
+        h3 Pedido #{index + 1} - Fecha: #{new Date(pedido.fecha).toLocaleString()}
+        table
+          thead
+            tr
+              th Producto
+              th Cantidad
+              th Precio
+              th Subtotal
+          tbody
+            each producto in pedido.productos
+              tr
+                td= producto.nombre
+                td= producto.cantidad
+                td= `$${producto.precio}`
+                td= `$${producto.precio * producto.cantidad}`
+        hr
+
+      a(href="/productos") Volver a la tienda

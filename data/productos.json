@@ -1,21 +1,5 @@
 [
   {
-    "id": 1,
-    "nombre": "Camiseta Básica",
-    "precio": 15,
-    "categoria": "Básicos",
-    "descripcion": "Camiseta de algodón suave.",
-    "stock": 100
-  },
-  {
-    "id": 2,
-    "nombre": "Pantalón Jean",
-    "precio": 40,
-    "categoria": "Básicos",
-    "descripcion": "Jean clásico con ajuste cómodo.",
-    "stock": 50
-  },
-  {
     "id": 3,
     "nombre": "Sudadera con Capucha",
     "precio": 30,
