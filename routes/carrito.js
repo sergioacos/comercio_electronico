@@ -17,11 +17,12 @@ router.post('/productos/:id/agregar-carrito', async (req, res) => {
 
     res.redirect('/productos');  // Redirigir a la vista del carrito o a donde prefieras
 });
-
+//const carrito=[];
 // Mostrar el carrito
-router.get('/carrito', (req, res) => {
+router.get('/', (req, res) => {
     const carrito = obtenerCarrito();
     res.render('carrito/carritoActual', { carrito });
 });
 
-module.exports = router;
+//module.exports ={router,carrito} ;
+module.exports =router ;

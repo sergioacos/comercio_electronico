@@ -38,6 +38,7 @@ function agregarProductoAlCarrito(producto) {
         // Si no está, agregar el producto al carrito con cantidad inicial 1
         carrito.push({ ...producto, cantidad: 1 });
         console.log("Agrego un producto cant:1");
+        console.log(`Producto agregado: ${carrito.length}`);
     }
 }
 
@@ -49,5 +50,5 @@ module.exports = {
   leerProductos,
   guardarProductos,
   agregarProductoAlCarrito,
-  obtenerCarrito
+  obtenerCarrito,
 };
