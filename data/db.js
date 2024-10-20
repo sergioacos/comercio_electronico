@@ -1,5 +1,6 @@
 const fs = require("fs-extra");
 const path = require("path");
+const { leerUsuarios, guardarUsuarios } = require("./db-usuarios");
 
 // Ruta del archivo JSON
 const filePath = path.join(__dirname, "productos.json");
@@ -72,7 +73,7 @@ function obtenerCarrito() {
 }
 
 // Leer el usuario desde el archivo JSON
-async function leerUsuario() {
+/*async function leerUsuario() {
   try {
     const data = await fs.readFile(userFilePath, 'utf-8');
     return JSON.parse(data);
@@ -80,20 +81,20 @@ async function leerUsuario() {
     console.error('Error al leer el archivo del usuario:', error);
     return { name: "usuario", pedidos: [] };
   }
-}
+}*/
 
 // Guardar los pedidos del usuario en el archivo JSON
-async function guardarUsuario(usuario) {
+/*async function guardarUsuario(usuario) {
   try {
     await fs.writeFile(userFilePath, JSON.stringify(usuario, null, 2), 'utf-8');
   } catch (error) {
     console.error('Error al guardar el archivo del usuario:', error);
   }
-}
+}*/
 
 // Guardar un pedido en el carrito del único usuario
 async function guardarPedido(carrito) {
-  let usuario = await leerUsuario();
+  let usuario = await leerUsuarios();
 
   // Agregar el carrito actual a la lista de pedidos del usuario
   usuario.pedidos.push({
@@ -101,7 +102,7 @@ async function guardarPedido(carrito) {
     productos: carrito
   });
 
-  await guardarUsuario(usuario);
+  await guardarUsuarios(usuario);
 }
 
 module.exports = {
@@ -111,5 +112,5 @@ module.exports = {
   agregarProductoAlCarrito,
   obtenerCarrito,
   guardarPedido,
-  leerUsuario
+  //leerUsuario
 };

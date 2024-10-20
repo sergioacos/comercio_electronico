@@ -5,7 +5,7 @@ const path = require('path');
 const filePath = path.join(__dirname, 'usuarios.json');
 
 // Leer usuarios desde el archivo JSON
-async function leerUsuarios() {
+/*async function leerUsuarios() {
     try {
         const data = await fs.readFile(filePath, 'utf-8');
         return JSON.parse(data);
@@ -13,8 +13,16 @@ async function leerUsuarios() {
         console.error('Error al leer el archivo:', error);
         return [];
     }
+}*/
+async function leerUsuarios() {
+    try {
+      const data = await fs.readFile(filePath, 'utf-8');
+      return JSON.parse(data);
+    } catch (error) {
+      console.error('Error al leer el archivo del usuario:', error);
+      return { name: "usuario", pedidos: [] };
+    }
 }
-
 
 // Guardar usuarios en el archivo JSON
 async function guardarUsuarios(usuarios) {

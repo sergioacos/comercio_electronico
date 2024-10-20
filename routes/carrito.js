@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { leerProductos, obtenerCarrito, agregarProductoAlCarrito, guardarPedido, leerUsuario,guardarProductos} = require('../data/db');
-
+const { leerProductos, obtenerCarrito, agregarProductoAlCarrito, guardarPedido, guardarProductos} = require('../data/db');
+const { leerUsuarios, guardarUsuarios} = require('../data/db-usuarios');
 // Añadir un producto al carrito
 router.post('/productos/:id/agregar-carrito', async (req, res) => {
     const { id } = req.params;
@@ -60,7 +60,7 @@ router.post('/finalizar-pedido', async (req, res) => {
 
 // Mostrar los pedidos del usuario
 router.get('/pedidos', async (req, res) => {
-    const usuario = await leerUsuario();
+    const usuario = await leerUsuarios();
 
     if (!usuario.pedidos.length) {
         return res.render('pedidos/pedidos', { pedidos: [], mensaje: "No hay pedidos realizados." });

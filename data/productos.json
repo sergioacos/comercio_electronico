@@ -13,7 +13,7 @@
     "precio": 8500,
     "categoria": "Calzado",
     "descripcion": "Calzado ligero y cómodo para correr.",
-    "stock": 40
+    "stock": 37
   },
   {
     "id": 5,
@@ -21,7 +21,7 @@
     "precio": 90,
     "categoria": "Calzado",
     "descripcion": "Botines elegantes de cuero genuino.",
-    "stock": 26
+    "stock": 14
   },
   {
     "id": 6,
@@ -45,7 +45,7 @@
     "precio": 20,
     "categoria": "Accesorios",
     "descripcion": "Gorra con diseño moderno y ajustable.",
-    "stock": 80
+    "stock": 79
   },
   {
     "id": 9,
@@ -53,7 +53,7 @@
     "precio": 25,
     "categoria": "Accesorios",
     "descripcion": "Pulsera resistente para monitorear actividad.",
-    "stock": 55
+    "stock": 54
   },
   {
     "id": 10,
