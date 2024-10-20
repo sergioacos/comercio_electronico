@@ -7,6 +7,8 @@ const {obtenerCarrito} = require('./data/db');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.static('static'));
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,17 +31,29 @@ app.use((req, res, next) => {
 const productoRoutes = require('./routes/productos');
 const usuarioRoutes = require('./routes/usuarios');
 const carritoRoutes = require('./routes/carrito')
+const ventasRoutes = require('./routes/ventas');
 app.use('/productos', productoRoutes);
 app.use('/carrito', carritoRoutes)
 app.use('/', usuarioRoutes)
+app.use('/ventas', ventasRoutes);
+
+
 
 // Página principal
 app.get('/', (req, res) => {
     res.render('index', { titulo: 'Comercio Electrónico' });
 });
 
+
+//Manejo error 404
 app.use((req, res) => {
     res.status(404).render('errores/404', { titulo: 'Página no encontrada' }); 
+});
+
+//Manejo error 500
+app.use((err, req, res, next) => {
+    console.error(err.stack); 
+    res.status(500).render('errores/500', { titulo: 'Error Interno' });
 });
 
 app.listen(PORT, () => {
