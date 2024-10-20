@@ -5,7 +5,7 @@
     "precio": 30,
     "categoria": "Básicos",
     "descripcion": "Sudadera de felpa con capucha.",
-    "stock": 75
+    "stock": 67
   },
   {
     "id": 4,
@@ -13,7 +13,7 @@
     "precio": 70,
     "categoria": "Calzado",
     "descripcion": "Calzado ligero y cómodo para correr.",
-    "stock": 40
+    "stock": 34
   },
   {
     "id": 5,
@@ -21,7 +21,7 @@
     "precio": 90,
     "categoria": "Calzado",
     "descripcion": "Botines elegantes de cuero genuino.",
-    "stock": 30
+    "stock": 28
   },
   {
     "id": 6,

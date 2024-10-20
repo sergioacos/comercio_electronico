@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { leerProductos, obtenerCarrito, agregarProductoAlCarrito, guardarPedido, leerUsuario} = require('../data/db');
+const { leerProductos, obtenerCarrito, agregarProductoAlCarrito, guardarPedido, leerUsuario,guardarProductos} = require('../data/db');
 
 // Añadir un producto al carrito
 router.post('/productos/:id/agregar-carrito', async (req, res) => {
@@ -33,12 +33,29 @@ router.post('/finalizar-pedido', async (req, res) => {
     }
 
     // Guardar el pedido del usuario único
-    await guardarPedido(carrito);
+    await guardarPedido(carrito);  
+    const productos = await leerProductos();
+    carrito.forEach((productoSeleccionado) => {
+        const producto = productos.find(p => p.id === parseInt(productoSeleccionado.id));
+        
+        if (!producto) {
+            return res.status(404).send(`Producto con ID ${productoSeleccionado.id} no encontrado.`);
+        }
 
+        // Verificar que haya suficiente stock
+        if (producto.stock < 1) {
+            return res.status(400).send(`Stock insuficiente para ${producto.nombre}.`);
+        }
+
+        // Restar uno del stock
+        producto.stock -= productoSeleccionado.cantidad;
+        
+    });
+    await guardarProductos(productos);
     // Limpiar el carrito después de finalizar el pedido
     carrito.length = 0; // Esto vacía el carrito
 
-    res.redirect('/carrito');
+    res.redirect('/productos');
 });
 
 // Mostrar los pedidos del usuario
@@ -53,4 +70,4 @@ router.get('/pedidos', async (req, res) => {
 });
 
 //module.exports ={router,carrito} ;
-module.exports =router ;
+module.exports = router;

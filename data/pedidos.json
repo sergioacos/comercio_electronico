@@ -98,6 +98,141 @@
           "cantidad": 2
         }
       ]
+    },
+    {
+      "fecha": "2024-10-19T22:57:20.462Z",
+      "productos": [
+        {
+          "id": 5,
+          "nombre": "Botines de Cuero",
+          "precio": 90,
+          "categoria": "Calzado",
+          "descripcion": "Botines elegantes de cuero genuino.",
+          "stock": 30,
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-19T22:58:33.525Z",
+      "productos": [
+        {
+          "id": 5,
+          "nombre": "Botines de Cuero",
+          "precio": 90,
+          "categoria": "Calzado",
+          "descripcion": "Botines elegantes de cuero genuino.",
+          "stock": 30,
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-19T23:00:22.142Z",
+      "productos": [
+        {
+          "id": 5,
+          "nombre": "Botines de Cuero",
+          "precio": 90,
+          "categoria": "Calzado",
+          "descripcion": "Botines elegantes de cuero genuino.",
+          "stock": 30,
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-19T23:44:52.963Z",
+      "productos": [
+        {
+          "id": 3,
+          "nombre": "Sudadera con Capucha",
+          "precio": 30,
+          "categoria": "Básicos",
+          "descripcion": "Sudadera de felpa con capucha.",
+          "stock": 75,
+          "cantidad": 5
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-19T23:46:21.302Z",
+      "productos": [
+        {
+          "id": 3,
+          "nombre": "Sudadera con Capucha",
+          "precio": 30,
+          "categoria": "Básicos",
+          "descripcion": "Sudadera de felpa con capucha.",
+          "stock": 75,
+          "cantidad": 5
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-20T01:56:09.510Z",
+      "productos": [
+        {
+          "id": 3,
+          "nombre": "Sudadera con Capucha",
+          "precio": 30,
+          "categoria": "Básicos",
+          "descripcion": "Sudadera de felpa con capucha.",
+          "stock": 75,
+          "cantidad": 5
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-20T01:56:50.603Z",
+      "productos": [
+        {
+          "id": 3,
+          "nombre": "Sudadera con Capucha",
+          "precio": 30,
+          "categoria": "Básicos",
+          "descripcion": "Sudadera de felpa con capucha.",
+          "stock": 70,
+          "cantidad": 3
+        },
+        {
+          "id": 4,
+          "nombre": "Zapatos Deportivos",
+          "precio": 70,
+          "categoria": "Calzado",
+          "descripcion": "Calzado ligero y cómodo para correr.",
+          "stock": 40,
+          "cantidad": 4
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-20T02:00:14.194Z",
+      "productos": [
+        {
+          "id": 5,
+          "nombre": "Botines de Cuero",
+          "precio": 90,
+          "categoria": "Calzado",
+          "descripcion": "Botines elegantes de cuero genuino.",
+          "stock": 30,
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-20T02:13:02.056Z",
+      "productos": [
+        {
+          "id": 4,
+          "nombre": "Zapatos Deportivos",
+          "precio": 70,
+          "categoria": "Calzado",
+          "descripcion": "Calzado ligero y cómodo para correr.",
+          "stock": 36,
+          "cantidad": 2
+        }
+      ]
     }
   ]
 }
