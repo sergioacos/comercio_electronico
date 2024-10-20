@@ -144,14 +144,6 @@
     "stock": 25
   },
   {
-    "id": 27,
-    "nombre": "Pantalones de Chándal",
-    "precio": 40,
-    "categoria": "Deportiva",
-    "descripcion": "Pantalones cómodos para el día a día.",
-    "stock": 60
-  },
-  {
     "id": 28,
     "nombre": "Gafas de Sol",
     "precio": 30,

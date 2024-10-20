@@ -71,9 +71,11 @@ html(lang="es")
                                 td=usuario.id
                                 td=usuario.name
                                 td=usuario.email
-                                td: a.btn-sm.btn-warning.mr-3(href=`/${usuario.id}/editar`) Editar
+                                td
+                                    a.btn-sm.btn-warning.mr-3(href=`/admin/${usuario.id}/editar`) Editar
                                     |
-                                    a.btn-sm.btn-warning(href='#', class='btn btn-danger btn-sm') Eliminar
+                                    form(action=`admin/${usuario.id}/eliminar` method="POST")
+                                        button.btn.btn-sm.btn-danger.mt-2(type="submit") Eliminar
                 //- Botón para volver a la página de inicio
                 .mt-5.text-center
                 a.btn.btn-secondary(href="/") Volver al Inicio

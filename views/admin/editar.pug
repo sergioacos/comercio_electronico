@@ -6,7 +6,7 @@ html
   body
     .container
       h1.mt-5 Editar Usuario
-      form(action=`/${usuario.id}/editar` method="POST" class="mt-4")
+      form(action=`/admin/${usuario.id}/editar` method="POST" class="mt-4")
         .mb-3
           label(for="name" class="form-label") Nombre del Usuario
           input#name.form-control(type="text" name="name" value=usuario.name required)
@@ -15,4 +15,4 @@ html
           input#email.form-control(type="text" name="email" value=usuario.email required)
 
         button.btn.btn-primary(type="submit") Guardar cambios
-      a.btn.btn-secondary.mt-3(href="/") Volver a Gestión
+      a.btn.btn-secondary.mt-3(href="/admin") Volver a Gestión

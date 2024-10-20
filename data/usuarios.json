@@ -1,15 +1,1 @@
-[
-  {
-    "id": 1,
-    "name": "ana",
-    "email": "admin@example.com",
-    "password": "1234"
-  },
-  {
-    "id": 2,
-    "name": "juan",
-    "email": "user@example.com",
-    "password": "9875",
-    "rol": "user"
-  }
-]
+[{"id":2,"name":"juan","email":"user@example.com","password":"9875"},{"id":3,"name":"maria","email":"maria@example.com","password":"1234"},{"id":4,"name":"pedro","email":"pedro@example.com","password":"5678"},{"id":5,"name":"lucia","email":"lucia@example.com","password":"abcd"},{"id":6,"name":"jose","email":"jose@example.com","password":"efgh"},{"id":7,"name":"sofia","email":"sofia@example.com","password":"ijkl"},{"id":8,"name":"roberto","email":"roberto@example.com","password":"mnop"},{"id":9,"name":"laura","email":"laura@example.com","password":"qrst"},{"id":10,"name":"daniel","email":"daniel@example.com","password":"uvwx"}]
