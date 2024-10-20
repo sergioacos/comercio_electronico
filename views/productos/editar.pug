@@ -3,10 +3,45 @@ html
   head
     title Editar Producto
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css")
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    script.
+      // Función para actualizar el producto con Axios
+      function actualizarProducto(id, event) {
+        event.preventDefault();  // Evitar el envío automático del formulario
+
+        const nombre = document.getElementById('nombre').value;
+        const precio = document.getElementById('precio').value;
+        const categoria = document.getElementById('categoria').value;
+        const descripcion = document.getElementById('descripcion').value;
+        const stock = document.getElementById('stock').value;
+
+        // Validar que los valores numéricos sean válidos
+        if (isNaN(precio) || isNaN(stock)) {
+          alert('Por favor, ingresa valores numéricos válidos.');
+          return;
+        }
+
+        // Enviar los datos mediante Axios
+        axios
+          .patch(`/productos/${id}/editar`, {
+            nombre,
+            precio: parseFloat(precio),
+            categoria,
+            descripcion,
+            stock: parseInt(stock),
+          })
+          .then(response => {
+            alert(response.data.message);  // Mostrar el mensaje del servidor
+            window.location.href = '/productos/admin';  // Redirigir a la lista de productos
+          })
+          .catch(error => {
+            alert(error.response?.data?.message || 'Error al actualizar el producto.');
+          });
+      }
   body
     .container
       h1.mt-5 Editar Producto
-      form(action=`/productos/${producto.id}/editar` method="POST" class="mt-4")
+      form(class="mt-4", onsubmit=`actualizarProducto(${producto.id}, event)`)
         .mb-3
           label(for="nombre" class="form-label") Nombre del Producto
           input#nombre.form-control(type="text" name="nombre" value=producto.nombre required)
@@ -22,5 +57,5 @@ html
         .mb-3
           label(for="stock" class="form-label") Stock
           input#stock.form-control(type="number" name="stock" value=producto.stock required)
-        button.btn.btn-primary(type="submit") Guardar cambios
+        button.btn.btn-primary(type="submit" ) Guardar cambios
       a.btn.btn-secondary.mt-3(href="/productos") Volver a la lista de productos

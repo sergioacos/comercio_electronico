@@ -233,6 +233,48 @@
           "cantidad": 2
         }
       ]
+    },
+    {
+      "fecha": "2024-10-20T12:22:50.884Z",
+      "productos": [
+        {
+          "id": 5,
+          "nombre": "Botines de Cuero",
+          "precio": 90,
+          "categoria": "Calzado",
+          "descripcion": "Botines elegantes de cuero genuino.",
+          "stock": 28,
+          "cantidad": 3
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-20T21:20:45.888Z",
+      "productos": [
+        {
+          "id": 5,
+          "nombre": "Botines de Cuero",
+          "precio": 90,
+          "categoria": "Calzado",
+          "descripcion": "Botines elegantes de cuero genuino.",
+          "stock": 30,
+          "cantidad": 2
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-20T21:20:58.490Z",
+      "productos": [
+        {
+          "id": 5,
+          "nombre": "Botines de Cuero",
+          "precio": 90,
+          "categoria": "Calzado",
+          "descripcion": "Botines elegantes de cuero genuino.",
+          "stock": 28,
+          "cantidad": 2
+        }
+      ]
     }
   ]
 }

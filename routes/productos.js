@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { leerProductos, guardarProductos } = require('../data/db');
 
+
 // Mostrar todos los productos
 router.get('/', async (req, res) => {
     const { categoria } = req.query; // Obtener la categoría del query string
@@ -49,7 +50,7 @@ router.post('/nuevo', async (req, res) => {
 });
 
 // Eliminar un producto
-router.post('/:id/eliminar', async (req, res) => {
+router.delete('/:id/eliminar', async (req, res) => {
     const { id } = req.params;
     let productos = await leerProductos();
     
@@ -57,7 +58,8 @@ router.post('/:id/eliminar', async (req, res) => {
     productos = productos.filter(producto => producto.id !== parseInt(id));
     
     await guardarProductos(productos);
-    res.redirect('/productos');
+    //res.redirect('/productos/admin');
+    return res.status(200).json({ message: 'Producto eliminado correctamente.' })
 });
 
 // Mostrar formulario de edición de un producto
@@ -75,7 +77,7 @@ router.get('/:id/editar', async (req, res) => {
 });
 
 // Actualizar un producto existente
-router.post('/:id/editar', async (req, res) => {
+router.patch('/:id/editar', async (req, res) => {
     const { id } = req.params;
     const { nombre, precio, categoria, descripcion, stock } = req.body;
     
@@ -95,7 +97,8 @@ router.post('/:id/editar', async (req, res) => {
     }
    
 
-    res.redirect('/productos');
+    //res.redirect('/productos');
+    return res.status(200).json({ message: 'Producto actualizado correctamente.' });
 });
 
 // Mostrar todos los productos con opción de filtrar por categoría

@@ -1,7 +1,7 @@
 const express = require('express');
-//const mongoose = require('mongoose');
+
 const path = require('path');
-//const { router: carritoRoutes, carrito } = require('./routes/carrito');
+
 const {obtenerCarrito} = require('./data/db');
 
 const app = express();
@@ -22,7 +22,6 @@ app.use((req, res, next) => {
     // Sumar todas las cantidades de los productos en el carrito
     const totalProductos = carrito.reduce((total, producto) => total + producto.cantidad, 0);
     res.locals.totalCarrito = totalProductos; // Total de productos en el carrito
-    console.log(`Total de productos en el carrito: ${res.locals.totalCarrito}`); // Para verificar
     next()
   });
 

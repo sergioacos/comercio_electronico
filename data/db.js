@@ -31,15 +31,15 @@ function agregarProductoAlCarrito(producto) {
     const existeEnCarrito = carrito.find(p => p.id === producto.id);
     
     if (existeEnCarrito) {
-      console.log("Agrego un producto cant:cantidad + 1");
+      //console.log("Agrego un producto cant:cantidad + 1");
         // Si el producto ya está en el carrito, incrementar la cantidad
         existeEnCarrito.cantidad += 1;
-        console.log(`/La cantidad es :${existeEnCarrito.cantidad}`);
+       // console.log(`/La cantidad es :${existeEnCarrito.cantidad}`);
     } else {
         // Si no está, agregar el producto al carrito con cantidad inicial 1
         carrito.push({ ...producto, cantidad: 1 });
-        console.log("Agrego un producto cant:1");
-        console.log(`Producto agregado: ${carrito.length}`);
+        //console.log("Agrego un producto cant:1");
+        //console.log(`Producto agregado: ${carrito.length}`);
     }
 }
 
