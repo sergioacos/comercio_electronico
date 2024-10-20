@@ -4,9 +4,17 @@ const { leerProductos, guardarProductos } = require('../data/db');
 
 // Mostrar todos los productos
 router.get('/', async (req, res) => {
-    const productos = await leerProductos();
-    res.render('productos/usuario', { productos });
+    const { categoria } = req.query; // Obtener la categoría del query string
+    let productos = await leerProductos();
+
+    // Filtrar por categoría si se seleccionó una
+    if (categoria) {
+        productos = productos.filter(producto => producto.categoria === categoria);
+    }
+
+    res.render('productos/usuario', { productos, categoria }); 
 });
+
 
 // Mostrar formulario para crear un nuevo producto
 router.get('/nuevo', (req, res) => {
@@ -49,7 +57,7 @@ router.post('/:id/eliminar', async (req, res) => {
     productos = productos.filter(producto => producto.id !== parseInt(id));
     
     await guardarProductos(productos);
-    res.redirect('/productos');
+    res.redirect('/');
 });
 
 // Mostrar formulario de edición de un producto
@@ -88,6 +96,19 @@ router.post('/:id/editar', async (req, res) => {
    
 
     res.redirect('/productos');
+});
+
+// Mostrar todos los productos con opción de filtrar por categoría
+router.get('/', async (req, res) => {
+    const productos = await leerProductos();
+    const { categoria } = req.query; // Obtener la categoría del query
+
+    // Filtrar productos si se especifica una categoría
+    const productosFiltrados = categoria ? 
+        productos.filter(producto => producto.categoria === categoria) : 
+        productos;
+
+    res.render('productos/usuario', { productos: productosFiltrados });
 });
 
 module.exports = router;

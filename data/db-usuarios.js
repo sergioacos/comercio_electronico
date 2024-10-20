@@ -15,6 +15,7 @@ async function leerUsuarios() {
     }
 }
 
+
 // Guardar usuarios en el archivo JSON
 async function guardarUsuarios(usuarios) {
     try {

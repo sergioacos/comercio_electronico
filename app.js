@@ -33,6 +33,7 @@ app.use('/productos', productoRoutes);
 app.use('/carrito', carritoRoutes)
 app.use('/', usuarioRoutes)
 
+
 // Página principal
 app.get('/', (req, res) => {
     res.render('index', { titulo: 'Comercio Electrónico' });

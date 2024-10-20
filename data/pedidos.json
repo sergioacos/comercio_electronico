@@ -1,0 +1,103 @@
+{
+  "name": "usuario",
+  "pedidos": [
+    {
+      "fecha": "2024-10-19T22:05:51.404Z",
+      "productos": [
+        {
+          "id": 6,
+          "nombre": "Zapatillas Casual",
+          "precio": 50,
+          "categoria": "Calzado",
+          "descripcion": "Zapatillas cómodas para uso diario.",
+          "stock": 60,
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-19T22:12:04.017Z",
+      "productos": [
+        {
+          "id": 2,
+          "nombre": "Pantalón Jean",
+          "precio": 40,
+          "categoria": "Básicos",
+          "descripcion": "Jean clásico con ajuste cómodo.",
+          "stock": 50,
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-19T22:13:34.065Z",
+      "productos": [
+        {
+          "id": 3,
+          "nombre": "Sudadera con Capucha",
+          "precio": 30,
+          "categoria": "Básicos",
+          "descripcion": "Sudadera de felpa con capucha.",
+          "stock": 75,
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-19T22:15:21.842Z",
+      "productos": [
+        {
+          "id": 5,
+          "nombre": "Botines de Cuero",
+          "precio": 90,
+          "categoria": "Calzado",
+          "descripcion": "Botines elegantes de cuero genuino.",
+          "stock": 30,
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-19T22:17:48.144Z",
+      "productos": [
+        {
+          "id": 8,
+          "nombre": "Gorra Ajustable",
+          "precio": 20,
+          "categoria": "Accesorios",
+          "descripcion": "Gorra con diseño moderno y ajustable.",
+          "stock": 80,
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-19T22:20:26.067Z",
+      "productos": [
+        {
+          "id": 6,
+          "nombre": "Zapatillas Casual",
+          "precio": 50,
+          "categoria": "Calzado",
+          "descripcion": "Zapatillas cómodas para uso diario.",
+          "stock": 60,
+          "cantidad": 1
+        }
+      ]
+    },
+    {
+      "fecha": "2024-10-19T22:21:49.271Z",
+      "productos": [
+        {
+          "id": 7,
+          "nombre": "Mochila Deportiva",
+          "precio": 35,
+          "categoria": "Accesorios",
+          "descripcion": "Mochila espaciosa para actividades deportivas.",
+          "stock": 45,
+          "cantidad": 2
+        }
+      ]
+    }
+  ]
+}

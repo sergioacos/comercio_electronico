@@ -1,0 +1,79 @@
+doctype html
+html(lang="es")
+    head
+        title #{title}
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js')
+    body
+        header.bg-light.text-dark.py-3
+            div.container
+                h1.text-center Panel de Administración
+        main.container.mt-4
+            section#productos
+                h2.text-center Gestión de Productos
+                table.table.table-bordered
+                    thead.thead-light
+                        tr.text-center
+                            th Nombre
+                            th Precio
+                            th Categoria
+                            th Stock
+                            th Acciones
+                    tbody.text-center
+                        each producto in productos
+                            tr
+                                td= producto.nombre
+                                td=producto.precio
+                                td=producto.categoria
+                                td=producto.stock
+                                td
+                                    a.btn-sm.btn-warning(href=`/productos/${producto.id}/editar`) Editar
+                                    |
+                                    form(action=`/productos/${producto.id}/eliminar` method="POST")
+                                        button.btn.btn-sm.btn-danger.mt-2(type="submit") Eliminar
+                                
+            section#pedidos.mt-4
+                h2 Gestión de Pedidos
+
+                table.table.table-bordered
+                    thead.thead-light
+                        tr
+                            th ID
+                            th Nombre
+                            th Precio x Unidad
+                            th Cantidad
+                            th Precio Total
+                            th Acción
+                    tbody
+                        each pedido in pedidosAgrupados
+                            tr
+                                td=pedido.id
+                                td=pedido.nombre
+                                td=pedido.precio
+                                td=pedido.cantidad
+                                td=(pedido.cantidad * pedido.precio)
+                                td: a.btn-sm.btn-warning(href='') Procesar
+
+            section#usuarios.mt-4
+                h2 Gestión de Usuarios
+                table.table.table-bordered
+                    thead.thead-light
+                        tr
+                            th ID
+                            th Nombre
+                            th Email
+                            th Acciones
+                    tbody
+                        each usuario in usuarios
+                            tr
+                                td=usuario.id
+                                td=usuario.name
+                                td=usuario.email
+                                td: a.btn-sm.btn-warning.mr-3(href=`/${usuario.id}/editar`) Editar
+                                    |
+                                    a.btn-sm.btn-warning(href='#', class='btn btn-danger btn-sm') Eliminar
+                //- Botón para volver a la página de inicio
+                .mt-5.text-center
+                a.btn.btn-secondary(href="/") Volver al Inicio
