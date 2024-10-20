@@ -246,13 +246,5 @@
     "categoria": "Accesorios",
     "descripcion": "Bolsa espaciosa para el gimnasio.",
     "stock": 40
-  },
-  {
-    "id": 34,
-    "nombre": "Camiseta de Yoga",
-    "precio": 30,
-    "categoria": "Deportiva",
-    "descripcion": "Camiseta ligera y transpirable para yoga.",
-    "stock": 50
   }
 ]
