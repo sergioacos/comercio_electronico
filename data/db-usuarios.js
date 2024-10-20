@@ -15,10 +15,11 @@ async function leerUsuarios() {
     }
 }
 
+
 // Guardar usuarios en el archivo JSON
 async function guardarUsuarios(usuarios) {
     try {
-        await fs.writeFile(filePath, JSON.stringify(usuarios, null, 2), 'utf-8');
+        await fs.writeFile(filePath, JSON.stringify(usuarios, null, 0), 'utf-8');
     } catch (error) {
         console.error('Error al guardar en el archivo:', error);
     }

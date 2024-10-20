@@ -13,8 +13,14 @@ router.get('/', async (req, res) => {
         productos = productos.filter(producto => producto.categoria === categoria);
     }
 
+    // Filtrar por categoría si se seleccionó una
+    if (categoria) {
+        productos = productos.filter(producto => producto.categoria === categoria);
+    }
+
     res.render('productos/usuario', { productos, categoria }); 
 });
+
 
 
 // Mostrar formulario para crear un nuevo producto
