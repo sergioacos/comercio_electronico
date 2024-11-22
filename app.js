@@ -1,6 +1,22 @@
 const express = require('express');
 
 const path = require('path');
+//base de datos
+const mongoose = require('mongoose');
+
+const usuario = "comercio"
+const password = "1234"
+const dbName = "comercio"
+
+/*const usuario = "usuario1"
+const password = "LyioIXwtQLwnFz5e"
+const dbName = "comercioMayorista"*/
+
+const uri = `mongodb+srv://${usuario}:${password}@mongodb.1vvkx.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=MongoDB`;
+
+mongoose.connect(uri)
+  .then(()=> console.log('conectado a mongodb')) 
+  .catch(e => console.log('error de conexión', e))
 
 const {obtenerCarrito} = require('./data/db');
 

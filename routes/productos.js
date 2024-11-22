@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { leerProductos, guardarProductos } = require('../data/db');
-
+const Producto = require('../models/producto');
 
 // Mostrar todos los productos
 router.get('/', async (req, res) => {
     const { categoria } = req.query; // Obtener la categoría del query string
-    let productos = await leerProductos();
+   let productos = await leerProductos();
+ 
 
     // Filtrar por categoría si se seleccionó una
     if (categoria) {
@@ -36,20 +37,9 @@ router.get('/admin', async (req, res) => {
 
 // Añadir un nuevo producto 
 router.post('/nuevo', async (req, res) => {
-    const { nombre, precio, categoria, descripcion, stock } = req.body;
-    let productos = await leerProductos();
     
-    // Crear nuevo producto con un ID único
-    const nuevoProducto = {
-        id: productos.length > 0 ? productos[productos.length - 1].id + 1 : 1,
-        nombre,
-        precio,
-        categoria,
-        descripcion,
-        stock
-    };
-    
-    productos.push(nuevoProducto);
+    const productos= req.body;
+  
     await guardarProductos(productos);
 
     res.redirect('/productos');

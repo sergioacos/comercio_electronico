@@ -1,7 +1,8 @@
 const fs = require("fs-extra");
 const path = require("path");
 const { leerUsuarios, guardarUsuarios } = require("./db-usuarios");
-
+//datos de mongo
+const Producto = require('../models/producto');
 // Ruta del archivo JSON
 const filePath = path.join(__dirname, "productos.json");
 const filePathPedidos = path.join(__dirname, "pedidos.json");
@@ -10,8 +11,10 @@ const filePathPedidos = path.join(__dirname, "pedidos.json");
 // Leer productos desde el archivo JSON
 async function leerProductos() {
   try {
-    const data = await fs.readFile(filePath, "utf-8");
-    return JSON.parse(data);
+    //const data = await fs.readFile(filePath, "utf-8");
+    //return JSON.parse(data);
+    const data= await Producto.find();
+    return data
   } catch (error) {
     console.error("Error al leer el archivo:", error);
     return [];
@@ -44,7 +47,10 @@ async function leerPedidos() {
 // Guardar productos en el archivo JSON
 async function guardarProductos(productos) {
   try {
-    await fs.writeFile(filePath, JSON.stringify(productos, null, 2), "utf-8");
+    //await fs.writeFile(filePath, JSON.stringify(productos, null, 2), "utf-8");
+    
+    const productoBd= new Producto(productos);
+    await productoBd.save();
   } catch (error) {
     console.error("Error al guardar en el archivo:", error);
   }
