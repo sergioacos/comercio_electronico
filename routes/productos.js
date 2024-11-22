@@ -37,7 +37,7 @@ router.get('/admin', async (req, res) => {
 
 // Añadir un nuevo producto 
 router.post('/nuevo', async (req, res) => {
-    
+    //const { nombre, precio, categoria, descripcion, stock } = req.body;
     const productos= req.body;
   
     await guardarProductos(productos);
