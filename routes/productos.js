@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { leerProductos, guardarProductos,eliminarProducto, editarProducto,buscarProducto } = require('../data/db');
 const Producto = require('../models/producto');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId; // Importar ObjectId
 
 // Mostrar todos los productos
 router.get('/', async (req, res) => {
@@ -63,58 +65,29 @@ router.delete('/:id/eliminar', async (req, res) => {
 router.get('/:id/editar', async (req, res) => {
     const { id } = req.params;
    const producto = await buscarProducto(id);
-/*
-   // const productos = await leerProductos();
-    const producto = productos.find(p => p.id === parseInt(id));
-
-    if (!producto) {
-        return res.status(404).send('Producto no encontrado');
-    }
-*/
 
     // Renderizar la vista de editar con los datos del producto
-    res.render('productos/editar', { producto });
+    res.render('productos/editar', { producto, idProducto:id});
 });
 
-// Actualizar un producto existente
-/*router.patch('/:id/editar', async (req, res) => {
-    const { id } = req.params;
-    const body  = req.body;
-    console.log(id)
-    console.log('body', body);
-
-    editarProducto(id, body)
-    /*
-    let productos = await leerProductos();
-    const productoIndex = productos.findIndex(producto => producto.id === parseInt(id));
-    
-    if (productoIndex !== -1) {
-        productos[productoIndex] = {
-            id: parseInt(id),
-            nombre,
-            precio,
-            categoria,
-            descripcion,
-            stock
-        };
-        await guardarProductos(productos);
-    }
-   
-
-    //res.redirect('/productos');
-    return res.status(200).json({ message: 'Producto actualizado correctamente.' });
-});*/
 
 router.patch('/:id/editar', async (req, res) => {
-    const { id } = req.params;  // Corrección: Obtener correctamente el `id` de `req.params`
-    const body = req.body;  
-    console.log(body)     // Cuerpo de la solicitud con los datos actualizados
-  
+    const { id }  = req.params;  // Corrección: Obtener correctamente el `id` de `req.params`
+    const { nombre, precio, categoria, descripcion, stock } = req.body;  
+      
     try {
-      // Llamar a la función para editar el producto
-      const productoActualizado = await editarProducto(id, body);
-  
-      if (productoActualizado) {
+     
+        const data = await Producto.findById(id);
+        if(data){
+            data.nombre = nombre;
+            data.precio = precio;
+            data.categoria = categoria;
+            data.descripcion  = descripcion;
+            data.stock  = stock;
+        
+        await data.save();
+        
+     
         // Si se actualizó correctamente, responder con un mensaje de éxito
         return res.status(200).json({ message: 'Producto actualizado correctamente.' });
       } else {
@@ -124,7 +97,7 @@ router.patch('/:id/editar', async (req, res) => {
     } catch (error) {
       console.error('Error al actualizar el producto:', error);
       // Responder con un mensaje de error en caso de fallo
-      return res.status(500).json({ message: 'Error al actualizar el producto.' });
+      return res.status(500).json({ message: 'Error al actualizar el producto sergio.' });
     }
   });
 // Mostrar todos los productos con opción de filtrar por categoría

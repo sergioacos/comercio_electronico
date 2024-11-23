@@ -1,16 +1,27 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const productoSchema = new Schema({
+const usuarioSchema = new Schema({
   nombre:  String,
-  precio:  Number,
-  categoria: String,
-  descripcion: String,
-  stock: Number
- 
+  password:  String,
+  rol: String,
+  pedidos: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'pedido'
+    }
+  ]
+});
+usuarioSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
+    delete returnedObject.password;
+  }
 });
 
 // Crear el modelo
-const Producto = mongoose.model('Producto', productoSchema);
+const Usuario = mongoose.model('Usuario', usuarioSchema);
 
-module.exports = Producto;
+module.exports = Usuario;

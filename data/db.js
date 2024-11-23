@@ -23,7 +23,7 @@ async function leerProductos() {
 async function editarProducto(id, body){
   try {
     
-    const productoActualizado= await Producto.findByIdAndUpdate(id, body,{new:true});
+    const productoActualizado= await Producto.findByIdAndUpdate({_id:id}, body,{useFindAndModify: false});
     
     if (!productoActualizado) {
       console.error(`Producto con id ${id} no encontrado.`);
