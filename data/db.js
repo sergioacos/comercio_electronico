@@ -20,6 +20,22 @@ async function leerProductos() {
     return [];
   }
 }
+async function editarProducto(id, body){
+  try {
+    
+    const productoActualizado= await Producto.findByIdAndUpdate(id, body,{new:true});
+    
+    if (!productoActualizado) {
+      console.error(`Producto con id ${id} no encontrado.`);
+      throw new Error('Producto no encontrado.');
+    }
+
+    return productoActualizado; // Devolver el producto actualizado
+  } catch (error) {
+    console.error('Error al actualizar el producto en la base de datos:', error);
+    throw error;
+  }
+}
 
 // Leer pedidos desde el archivo JSON
 async function leerPedidos() {
@@ -43,7 +59,16 @@ async function leerPedidos() {
     return [];
   }
 }
-
+// buscra 1 producto
+async function buscarProducto(id) {
+  try {
+    const productoBd = await Producto.findOne({ _id: id })
+    return productoBd
+} catch (error) {
+  return console.error("No se encontro el producto", error);
+  
+}
+}
 // Guardar productos en el archivo JSON
 async function guardarProductos(productos) {
   try {
@@ -51,6 +76,15 @@ async function guardarProductos(productos) {
     
     const productoBd= new Producto(productos);
     await productoBd.save();
+  } catch (error) {
+    console.error("Error al guardar en el archivo:", error);
+  }
+}
+async function eliminarProducto(id) {
+  try {
+   
+    const productoBd= await Producto.findByIdAndDelete({_id:id});
+    
   } catch (error) {
     console.error("Error al guardar en el archivo:", error);
   }
@@ -118,5 +152,8 @@ module.exports = {
   agregarProductoAlCarrito,
   obtenerCarrito,
   guardarPedido,
+  eliminarProducto,
+  editarProducto, 
+  buscarProducto,
   //leerUsuario
 };

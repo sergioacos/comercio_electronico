@@ -4,6 +4,16 @@ const path = require('path');
 //base de datos
 const mongoose = require('mongoose');
 
+
+const bodyParser = require('body-parser')
+const app = express();
+
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
 const usuario = "comercio"
 const password = "1234"
 const dbName = "comercio"
@@ -20,7 +30,7 @@ mongoose.connect(uri)
 
 const {obtenerCarrito} = require('./data/db');
 
-const app = express();
+
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static('static'));

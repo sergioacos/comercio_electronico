@@ -6,7 +6,7 @@ html
     script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
     script. 
       // Función para eliminar un producto
-      function eliminarProducto(id) {
+      function eliminarProductos(id) {
         if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
           
           axios.delete(`${id}/eliminar`)
@@ -50,7 +50,7 @@ html
                 .d-flex.justify-content-between.mt-3
                   a.btn.btn-primary(href=`/productos/${producto.id}/editar`) Editar
                     //-form(action=`/productos/${producto.id}/eliminar` method="POST")
-                  button.btn.btn-danger(onclick=`eliminarProducto(${producto.id})` ) Eliminar
+                  button.btn.btn-danger(onclick=`eliminarProductos(${producto.id})` ) Eliminar
 
       //- Botón para volver a la página de inicio
       .mt-5.text-center
