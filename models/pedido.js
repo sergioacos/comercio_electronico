@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const pedidoSchema = new Schema({
-  usuario:  {
+  user:  {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario'
+    ref: 'User'
   },
   fecha:  Date,
   producto:[

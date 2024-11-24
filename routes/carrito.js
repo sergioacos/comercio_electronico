@@ -22,7 +22,7 @@ router.post('/productos/:id/agregar-carrito', async (req, res) => {
 // Mostrar el carrito
 router.get('/', (req, res) => {
     const carrito = obtenerCarrito();
-    res.render('carrito/carritoActual', { carrito });
+    res.render('carrito/carritoActual', { carrito});
 });
 
 // Finalizar el pedido y guardarlo para el único usuario

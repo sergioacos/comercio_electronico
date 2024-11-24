@@ -95,11 +95,13 @@ async function eliminarProducto(id) {
 let carrito = [];
 
 function agregarProductoAlCarrito(productoM) {
+  
   const producto = productoM.toObject();
-    console.log("bd",producto.id)
-    const existeEnCarrito = carrito.find(p => p._id === producto._id);
-    if(carrito.length > 0){
-      console.log("prod",carrito[0]);}
+   // console.log("bd",producto.id)
+    const existeEnCarrito = carrito.find(p => p.id.toString() === producto.id.toString());
+    //console.log("si existe", existeEnCarrito);
+   // if(carrito.length > 1){
+    //  console.log("prod",carrito[1]);}
     if (existeEnCarrito) {
       //console.log("Agrego un producto cant:cantidad + 1");
         // Si el producto ya está en el carrito, incrementar la cantidad
@@ -109,8 +111,8 @@ function agregarProductoAlCarrito(productoM) {
         // Si no está, agregar el producto al carrito con cantidad inicial 1
         carrito.push({ ...producto, cantidad: 1 });
         //console.log("Agrego un producto cant:1");
-        console.log(`Producto agregado: ${carrito.length}`);
-        console.log(`Producto agregado: ${carrito[0].cantidad}`);
+        //console.log(`Producto agregado: ${carrito.length}`);
+        //console.log(`Producto agregado: ${carrito[0].cantidad}`);
     }
 }
 
@@ -139,19 +141,19 @@ function obtenerCarrito() {
 }*/
 
 // Guardar un pedido en el carrito del único usuario
-async function guardarPedido(carrito,usuario) {
+async function guardarPedido(carrito,user) {
   //let usuario = await leerUsuarios();
 
   const pedido = new Pedido({
-    usuario: usuario.id,
+    user: user.id,
     fecha: new Date(),
     producto: carrito
   });
  
   const pedidoGuardado = await pedido.save();
    // Agregar el carrito actual a la lista de pedidos del usuario
-  usuario.pedido= usuario.concat(pedidoGuardado._id);
-  await usuario.save();
+  user.pedido= user.concat(pedidoGuardado._id);
+  await user.save();
 /*  usuario.pedidos.push({
     fecha: new Date(),
     productos: carrito
