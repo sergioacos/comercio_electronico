@@ -1,4 +1,6 @@
 const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
 const flash = require('connect-flash');
 const path = require('path');
 //base de datos
@@ -13,7 +15,8 @@ const User = require("./models/user")
 
 const bodyParser = require('body-parser')
 const app = express();
-
+const server = http.createServer(app);
+const io = socketIo(server);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -140,6 +143,23 @@ app.get('/logout', (req, res) => {
   });
 });
 
+// Configurar conexión de socket.io  
+io.on('connection', (socket) => {  
+  console.log('Un usuario se ha conectado');  
+
+  // Evento de desconexión  
+  socket.on('disconnect', () => {  
+      console.log('Un usuario se ha desconectado');  
+  });  
+
+  // Evento para recibir mensajes  
+  socket.on('mensaje', (data) => {  
+      console.log('Mensaje recibido:', data);  
+      // Aquí envías el mensaje a todos los clientes conectados  
+      io.emit('mensaje', data);  
+  });  
+});
+
 
 //Manejo error 404
 app.use((req, res) => {
@@ -164,6 +184,6 @@ app.use((err, req, res, next) => {
     res.status(500).render('errores/500', { titulo: 'Error Interno' });
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
