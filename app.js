@@ -9,6 +9,8 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+const User = require("./models/user")
+
 const bodyParser = require('body-parser')
 const app = express();
 
@@ -104,6 +106,11 @@ try {
 }
 });
 
+app.use((req, res, next) => {
+  res.locals.user = req.user; // `req.user` es establecido por Passport si el usuario está autenticado
+  next();
+});
+
 const productoRoutes = require("./routes/productos");
 const usuarioRoutes = require("./routes/users");
 const carritoRoutes = require("./routes/carrito");
@@ -122,6 +129,15 @@ app.use("/login", loginRoutes)
 // Página principal
 app.get("/", (req, res) => {
   res.render("index", { titulo: "Comercio Electrónico" });
+});
+
+app.get('/logout', (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return res.status(500).send('Error al cerrar sesión');
+    }
+    res.redirect('/');
+  });
 });
 
 

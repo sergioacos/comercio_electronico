@@ -27,7 +27,8 @@
 // module.exports = Usuario;
 
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');  //https://chatgpt.com/c/6726b2dd-e450-8012-b5fd-b96017d5f4b9
+const uniqueValidator = require('mongoose-unique-validator');
+const Pedido = require('./pedido');  //https://chatgpt.com/c/6726b2dd-e450-8012-b5fd-b96017d5f4b9
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
