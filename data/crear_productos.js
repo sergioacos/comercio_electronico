@@ -1,6 +1,9 @@
 
 const Producto = require('../models/producto');
-
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/my_database', {
+  serverSelectionTimeoutMS: 30000 // 30 segundos
+});
 
 async function cargarProductos() {
     // Lista de productos a insertar
@@ -52,3 +55,4 @@ async function cargarProductos() {
   }
   async function main() {
    await cargarProductos();}
+  main();

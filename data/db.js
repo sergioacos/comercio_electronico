@@ -3,6 +3,7 @@ const path = require("path");
 const { leerUsuarios, guardarUsuarios } = require("./db-usuarios");
 //datos de mongo
 const Producto = require('../models/producto');
+const Pedido = require('../models/pedido');
 // Ruta del archivo JSON
 const filePath = path.join(__dirname, "productos.json");
 const filePathPedidos = path.join(__dirname, "pedidos.json");
@@ -61,6 +62,7 @@ async function leerPedidos() {
 }
 // buscra 1 producto
 async function buscarProducto(id) {
+ // console.log("Buscar producto:", id);
   try {
     const productoBd = await Producto.findOne({ _id: id })
     return productoBd
@@ -92,9 +94,12 @@ async function eliminarProducto(id) {
 
 let carrito = [];
 
-function agregarProductoAlCarrito(producto) {
-    const existeEnCarrito = carrito.find(p => p.id === producto.id);
-    
+function agregarProductoAlCarrito(productoM) {
+  const producto = productoM.toObject();
+    console.log("bd",producto.id)
+    const existeEnCarrito = carrito.find(p => p._id === producto._id);
+    if(carrito.length > 0){
+      console.log("prod",carrito[0]);}
     if (existeEnCarrito) {
       //console.log("Agrego un producto cant:cantidad + 1");
         // Si el producto ya está en el carrito, incrementar la cantidad
@@ -104,7 +109,8 @@ function agregarProductoAlCarrito(producto) {
         // Si no está, agregar el producto al carrito con cantidad inicial 1
         carrito.push({ ...producto, cantidad: 1 });
         //console.log("Agrego un producto cant:1");
-        //console.log(`Producto agregado: ${carrito.length}`);
+        console.log(`Producto agregado: ${carrito.length}`);
+        console.log(`Producto agregado: ${carrito[0].cantidad}`);
     }
 }
 
@@ -133,16 +139,25 @@ function obtenerCarrito() {
 }*/
 
 // Guardar un pedido en el carrito del único usuario
-async function guardarPedido(carrito) {
-  let usuario = await leerUsuarios();
+async function guardarPedido(carrito,usuario) {
+  //let usuario = await leerUsuarios();
 
-  // Agregar el carrito actual a la lista de pedidos del usuario
-  usuario.pedidos.push({
+  const pedido = new Pedido({
+    usuario: usuario.id,
+    fecha: new Date(),
+    producto: carrito
+  });
+ 
+  const pedidoGuardado = await pedido.save();
+   // Agregar el carrito actual a la lista de pedidos del usuario
+  usuario.pedido= usuario.concat(pedidoGuardado._id);
+  await usuario.save();
+/*  usuario.pedidos.push({
     fecha: new Date(),
     productos: carrito
   });
 
-  await guardarUsuarios(usuario);
+  await guardarUsuarios(usuario);*/
 }
 
 module.exports = {
