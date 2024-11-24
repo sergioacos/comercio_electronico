@@ -60,7 +60,7 @@ Una aplicación web para gestionar una tienda en línea con funcionalidades de a
 
 ---
 
-##🌟 Instalación y Configuración
+## 🌟 Instalación y Configuración
 ### **Clonar el repositorio:**
  - git clone https://github.com/tu_usuario/comercio_electronico.git
  - cd comercio_electronico
