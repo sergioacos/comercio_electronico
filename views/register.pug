@@ -1,23 +1,3 @@
-//- doctype html
-//- html
-//-   head
-//-     title Registro de Usuario
-//-     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css")
-//-   body
-//-     .container
-//-       h1.mt-5 Registro de nuevo usuario
-//-       form(action="/registro" method="POST" class="mt-4")
-//-         .mb-3
-//-           label(for="email" class="form-label") Correo electrónico
-//-           input#email.form-control(type="email" name="email" placeholder="Ingresa tu correo" required)
-//-         .mb-3
-//-           label(for="password" class="form-label") Contraseña
-//-           input#password.form-control(type="password" name="password" placeholder="Ingresa tu contraseña" required)
-//-         button.btn.btn-primary(type="submit") Registrarme
-//-       p.mt-3
-//-         | ¿Ya tienes una cuenta?
-//-         a(href="/login") Inicia sesión
-
 doctype html
 html(lang="es")
   head
@@ -94,6 +74,14 @@ html(lang="es")
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
       }
 
+      .error-message {
+        color: #a94442;
+        font-size: 0.9rem; 
+        font-weight: normal;
+        margin-bottom: 10px;
+        text-align: right; 
+      }
+
   body
     a(href="/" class="btn-menu") Menú Principal
 
@@ -112,6 +100,10 @@ html(lang="es")
               .mb-3
                 label(for="password" class="form-label") Contraseña
                 input#password.form-control(type="password" name="password" placeholder="Ingrese su contraseña" required)
+
+              if error
+                p.error-message= error
+
               .d-grid
                 button.btn.btn-primary(type="submit") Registrar
 

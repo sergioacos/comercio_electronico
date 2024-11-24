@@ -42,17 +42,17 @@ loginRouter.post('/', (req, res, next) => {
       return res.status(500).json({ message: 'Error interno del servidor', error: err });
     }
     if (!user) {
-      return res.status(401).json({ message: 'Credenciales incorrectas', info });
+      return res.render('login', { error: 'Credenciales incorrectas. Intente nuevamente' });
     }
     req.login(user, (loginErr) => {
       if (loginErr) {
         return res.status(500).json({ message: 'Error al iniciar sesión', error: loginErr });
       }
-      // Redirige al inicio con el usuario autenticado
       return res.redirect('/');
     });
   })(req, res, next);
 });
+
 
   
   // Cerrar sesión

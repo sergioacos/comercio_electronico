@@ -1,24 +1,3 @@
-//- doctype html
-//- html
-//-   head
-//-     title Login de Usuario
-//-     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css")
-//-   body
-//-     .container
-//-       h1.mt-5 Iniciar Sesión
-//-       form(action="/login" method="POST" class="mt-4")
-//-         .mb-3
-//-           label(for="email" class="form-label") Correo electrónico
-//-           input#email.form-control(type="email" name="email" placeholder="Ingresa tu correo" required)
-//-         .mb-3
-//-           label(for="password" class="form-label") Contraseña
-//-           input#password.form-control(type="password" name="password" placeholder="Ingresa tu contraseña" required)
-//-         button.btn.btn-primary(type="submit") Iniciar Sesión
-//-       p.mt-3
-//-         | ¿No tienes una cuenta?
-//-         a(href="/registro") Regístrate aquí
-
-
 doctype html
 html
   head
@@ -93,6 +72,15 @@ html
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
       }
 
+      .error-message {
+        color: #a94442; 
+        font-weight: normal;
+        font-size: 0.9rem; 
+        margin-bottom: 1rem;
+        font-family: 'Arial', sans-serif; 
+        text-align: right; 
+      }
+
   body
     a(href="/" class="btn-menu") Menú Principal
 
@@ -103,9 +91,6 @@ html
             .card-title.text-center Iniciar Sesión
 
             form(method="POST" action="/login")
-              if error
-                p.error-message= error
-
               .mb-3
                 label(for="username" class="form-label") Usuario
                 input#username.form-control(type="text" name="username" placeholder="Ingrese su usuario" required)
@@ -113,6 +98,9 @@ html
               .mb-3
                 label(for="password" class="form-label") Contraseña
                 input#password.form-control(type="password" name="password" placeholder="Ingrese su contraseña" required)
+
+              if error
+                p.error-message= error
 
               .d-grid
                 button.btn.btn-primary(type="submit") Iniciar Sesión
