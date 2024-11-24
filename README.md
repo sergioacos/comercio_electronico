@@ -60,20 +60,20 @@ Una aplicación web para gestionar una tienda en línea con funcionalidades de a
 
 ---
 
-🌟 Instalación y Configuración
-Clonar el repositorio:
-git clone https://github.com/tu_usuario/comercio_electronico.git
-cd comercio_electronico
+##🌟 Instalación y Configuración
+### **Clonar el repositorio:**
+ - git clone https://github.com/tu_usuario/comercio_electronico.git
+ - cd comercio_electronico
 
-Instalar las dependencias:
-npm install
+### **Instalar las dependencias:**
+ - npm install
 
-Ejecutar la aplicación en modo desarrollo:
-npm run dev
+### **Ejecutar la aplicación en modo desarrollo:**
+ - npm run dev
 
 
-🤝 Colaboradores
-Acosta Sergio 
-Barrera Denise
-Sabatella Evana
-Steinaker Melisa
+## 🤝 Colaboradores
+ - Acosta Sergio 
+ - Barrera Denise
+ - Sabatella Evana
+ - Steinaker Melisa
