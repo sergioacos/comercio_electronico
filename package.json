@@ -13,14 +13,21 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "comercio-electronico": "file:",
+    "connect-flash": "^0.1.1",
     "dependencies": "^0.0.1",
     "express": "^4.21.1",
+    "express-session": "^1.18.1",
     "fs-extra": "^11.2.0",
     "mongoose": "^8.8.2",
+    "mongoose-unique-validator": "^5.0.1",
     "nodemon": "^3.1.7",
+    "passport": "^0.7.0",
+    "passport-example": "file:",
+    "passport-local": "^1.0.0",
     "pug": "^3.0.3"
   }
 }
