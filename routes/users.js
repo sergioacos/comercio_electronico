@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const usersRouter = express.Router();
-const User = require('../models/User');
+const User = require('../models/user');
 
 usersRouter.get('/register', (req, res) => {
     res.render('register'); 
@@ -38,5 +38,16 @@ usersRouter.post('/register', async (req, res) => {
         res.render('register', { error: 'Error al registrar el usuario. Intenta de nuevo.' });
     }
 });
+
+usersRouter.get('/', async (request, response) => {
+    const users = await User.find({}).populate('pedidos');
+    // const users = await User.find({}).populate('posts', { title: 1, date: 1 });
+    response.json(users);
+   });
+
+   usersRouter.get('/register', (req, res) => {
+    res.render('register');
+});
+
 
 module.exports = usersRouter;

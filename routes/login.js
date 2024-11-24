@@ -3,7 +3,7 @@ const passport = require('passport');
 //const jwt = require('jsonwebtoken');
 //const bcrypt = require('bcrypt');
 const loginRouter = require('express').Router();
-const User = require('../models/User');
+//const User = require('../models/User');
 
 // Mostrar formulario de inicio de sesión
 loginRouter.get('/', (req, res) => {

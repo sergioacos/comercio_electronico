@@ -87,7 +87,7 @@ try {
   if (!isPasswordValid) {
     return done(null, false, { message: 'Contraseña incorrecta' });
   }
-  console.log(user.name);
+  //console.log(user.name);
   return done(null, user);
 } catch (err) {
   return done(err);
@@ -102,7 +102,7 @@ done(null, user.id);
 passport.deserializeUser(async (id, done) => {
 try {
     const user = await User.findById(id);
-    console.log("1 Usuario deserializado:", user); // Verifica que se obtiene el usuario completo
+    //console.log("1 Usuario deserializado:", user); // Verifica que se obtiene el usuario completo
     done(null, user); // Aquí se pasa el usuario a req.user
 } catch (err) {
     done(err);
