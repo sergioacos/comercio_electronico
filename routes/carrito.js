@@ -27,17 +27,18 @@ router.get('/', (req, res) => {
 
 // Finalizar el pedido y guardarlo para el único usuario
 router.post('/finalizar-pedido', async (req, res) => {
+    const id = '67426d656fcf6f3c48ede6f8'; 
     const carrito = obtenerCarrito();
-
+   // const {id}=req.params;
     if (!carrito.length) {
         return res.status(400).send('El carrito está vacío.');
     }
 
     // Guardar el pedido del usuario único
-    await guardarPedido(carrito);  
+    await guardarPedido(carrito, id);  
     const productos = await leerProductos();
     carrito.forEach((productoSeleccionado) => {
-        const producto = productos.find(p => p.id === productoSeleccionado.id);
+        const producto = productos.find(p => p.id.toString() === productoSeleccionado.id.toString() );
         
         if (!producto) {
             return res.status(404).send(`Producto con ID ${productoSeleccionado.id} no encontrado.`);
@@ -52,7 +53,7 @@ router.post('/finalizar-pedido', async (req, res) => {
         producto.stock -= productoSeleccionado.cantidad;
         
     });
-    await guardarProductos(productos);
+    //await guardarProductos(productos);
     // Limpiar el carrito después de finalizar el pedido
     carrito.length = 0; // Esto vacía el carrito
 

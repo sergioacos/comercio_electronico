@@ -4,6 +4,7 @@ const { leerUsuarios, guardarUsuarios } = require("./db-usuarios");
 //datos de mongo
 const Producto = require('../models/producto');
 const Pedido = require('../models/pedido');
+const User = require('../models/user')
 // Ruta del archivo JSON
 const filePath = path.join(__dirname, "productos.json");
 const filePathPedidos = path.join(__dirname, "pedidos.json");
@@ -141,19 +142,36 @@ function obtenerCarrito() {
 }*/
 
 // Guardar un pedido en el carrito del único usuario
-async function guardarPedido(carrito,user) {
+async function guardarPedido(carrito,userId) {
   //let usuario = await leerUsuarios();
-
+  
+  const listIdProd = (carrito) => {
+    return carrito.reduce((ids, prod) => {
+        
+        for (let i = 0; i < prod.cantidad; i++) {
+            ids.push(prod.id);
+        }
+        return ids;
+    }, []);
+  };
+  const idsDeProductos = listIdProd(carrito)
   const pedido = new Pedido({
-    user: user.id,
+    user: userId,
     fecha: new Date(),
-    producto: carrito
+    producto: idsDeProductos
   });
  
   const pedidoGuardado = await pedido.save();
    // Agregar el carrito actual a la lista de pedidos del usuario
-  user.pedido= user.concat(pedidoGuardado._id);
-  await user.save();
+ 
+  const user = await User.findById(userId); 
+  user.pedido= pedidoGuardado.id;
+if (user) {
+    // Ahora `user` debería ser un documento de Mongoose y debería tener el método `save`
+    await user.save();
+} else {
+    console.log('Usuario no encontrado');
+}
 /*  usuario.pedidos.push({
     fecha: new Date(),
     productos: carrito
