@@ -55,8 +55,6 @@ Una aplicación web para gestionar una tienda en línea con funcionalidades de a
 - [Jest](https://jestjs.io/) - Framework de pruebas.
 - [Supertest](https://github.com/visionmedia/supertest) - Pruebas HTTP.
 
-### **Despliegue**:
-- [Vercel](https://vercel.com/) - Despliegue de la aplicación.
 
 ---
 
@@ -71,6 +69,7 @@ Una aplicación web para gestionar una tienda en línea con funcionalidades de a
 ### **Ejecutar la aplicación en modo desarrollo:**
  - npm run dev
 
+---
 
 ## 🤝 Colaboradores
  - Acosta Sergio 
