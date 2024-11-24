@@ -1,5 +1,4 @@
 doctype html
-     
 html
   head
     title Editar Producto
@@ -24,7 +23,6 @@ html
         }
 
         // Enviar los datos mediante Axios
-        
         axios.patch(`/productos/${id}/editar`, {
               nombre,
               precio: parseFloat(precio),
@@ -37,14 +35,14 @@ html
               window.location.href = '/productos/admin';  // Redirigir a la lista de productos
             })
             .catch(error => {
-              alert(error.response?.data?.message || 'Error al actualizar el producto222.');
+              alert(error.response?.data?.message || 'Error al actualizar el producto.');
             });
-            
-              }
+      }
+
   body
     .container
       h1.mt-5 Editar Producto
-      
+
       form(class="mt-4", onsubmit=`actualizarProductos('${idProducto}', event)`)
         .mb-3
           label(for="nombre" class="form-label") Nombre del Producto
@@ -54,11 +52,25 @@ html
           input#precio.form-control(type="number" name="precio" value=producto.precio step="0.01" required)
         .mb-3
           label(for="categoria" class="form-label") Categoría
-          input#categoria.form-control(type="text" name="categoria" value=producto.categoria required)
+          select#categoria.form-select(name="categoria" required)
+            option(value="Básicos", selected=producto.categoria === 'Básicos') Básicos
+            option(value="Calzado", selected=producto.categoria === 'Calzado') Calzado
+            option(value="Accesorios", selected=producto.categoria === 'Accesorios') Accesorios
+            option(value="Abrigos", selected=producto.categoria === 'Abrigos') Abrigos
+            option(value="Deportiva", selected=producto.categoria === 'Deportiva') Deportiva
         .mb-3
           label(for="descripcion" class="form-label") Descripción
           textarea#descripcion.form-control(name="descripcion" required)= producto.descripcion
         .mb-3
           label(for="stock" class="form-label") Stock
           input#stock.form-control(type="number" name="stock" value=producto.stock required)
-        button.btn.btn-primary(type="submit") Guardar Cambios
+
+        // Botón "Guardar Cambios" centrado
+        .d-flex.justify-content-center
+          button.btn.btn-primary(type="submit") Guardar Cambios
+        
+      // Botones para redirigir a otras páginas, centrados
+      .mt-4.text-center.mb-3
+        .d-flex.justify-content-center
+          a.btn.btn-secondary.mx-2(href='/admin') Ir al Panel Administrativo
+          a.btn.btn-info.mx-2(href='/productos/admin') Ir a la Lista de Productos

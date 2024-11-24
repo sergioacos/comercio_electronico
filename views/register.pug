@@ -19,20 +19,105 @@
 //-         a(href="/login") Inicia sesión
 
 doctype html
-html
-    head
-        title Registro de Usuario
-    body
-        h1 Registro de Usuario
-        form(action="/user/register" method="POST")
-            div
-                label(for="name") Nombre:
-                input(type="text" id="name" name="name" required)
-            div
-                label(for="username") Nombre de Usuario:
-                input(type="text" id="username" name="username" required)
-            div
-                label(for="password") Contraseña:
-                input(type="password" id="password" name="password" required)
-            div
-                button(type="submit") Registrar
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Registro de Usuario
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css")
+    style.
+      html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container {
+        flex: 1;
+      }
+
+      .card-title {
+        font-size: 2rem;  
+        font-weight: 600;
+        color: #333;
+      }
+
+      .btn-primary {
+        background-color: #5a6268; 
+        border: none;
+        color: white;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #4e555b;
+      }
+
+      footer {
+        background-color: #343a40;
+        color: white;
+        padding: 10px 0;
+        font-size: 0.9rem;
+        box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+        margin-top: auto;  
+      }
+
+      footer p {
+        margin-bottom: 0;
+      }
+
+      .btn-menu {
+        position: absolute;
+        top: 15px;   
+        left: 15px;  
+        z-index: 10;
+        background-color: #5a6268; 
+        border: 1px solid #5a6268;
+        color: white;
+        padding: 0.375rem 0.75rem; 
+        font-size: 0.875rem; 
+        text-align: center;
+        cursor: pointer;
+        border-radius: 0.375rem; 
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+        text-decoration: none; 
+      }
+
+      .btn-menu:hover {
+        background-color: #4e555b; 
+        border-color: #4e555b;
+      }
+
+      .btn-menu:focus {
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+      }
+
+  body
+    a(href="/" class="btn-menu") Menú Principal
+
+    .container.mt-5
+      .row.justify-content-center
+        .col-md-6
+          .card.shadow.p-5
+            .card-title.text-center Registro de Usuario
+            form(action="/user/register" method="POST")
+              .mb-3
+                label(for="name" class="form-label") Nombre
+                input#name.form-control(type="text" name="name" placeholder="Ingrese su nombre" required)
+              .mb-3
+                label(for="username" class="form-label") Nombre de Usuario
+                input#username.form-control(type="text" name="username" placeholder="Ingrese su nombre de usuario" required)
+              .mb-3
+                label(for="password" class="form-label") Contraseña
+                input#password.form-control(type="password" name="password" placeholder="Ingrese su contraseña" required)
+              .d-grid
+                button.btn.btn-primary(type="submit") Registrar
+
+            .text-center.mt-3
+              span ¿Ya tienes una cuenta? 
+              a(href="/login" class="btn btn-link p-0 align-baseline") Inicia sesión aquí
+
+    footer.text-center
+      p &copy; 2024 Comercio Electrónico
