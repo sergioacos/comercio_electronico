@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const { leerProductos, obtenerCarrito, agregarProductoAlCarrito, guardarPedido, guardarProductos,buscarProducto} = require('../data/db');
-const { leerUsuarios, guardarUsuarios} = require('../data/db-usuarios');
+const { leerProductos, obtenerCarrito, agregarProductoAlCarrito, guardarPedido, guardarProductos, buscarProducto } = require('../data/db');
+const { leerUsuarios, guardarUsuarios } = require('../data/db-usuarios');
 const User = require('../models/user');
 
 // const getTokenFrom = (request) => {
@@ -15,42 +15,42 @@ const User = require('../models/user');
 //    };
 
 const getTokenFrom = (request) => {
-    // Si estás usando cookies
-    if (request.cookies && request.cookies.jwt) {
-      return request.cookies.jwt;
-    }
-    
-    // Si todavía usas el header de autorización como fallback
-    const authorization = request.get('authorization');
-    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-      return authorization.substring(7);
-    }
-    
-    return null; // Si no hay token
-  };
+  // Si estás usando cookies
+  if (request.cookies && request.cookies.jwt) {
+    return request.cookies.jwt;
+  }
+
+  // Si todavía usas el header de autorización como fallback
+  const authorization = request.get('authorization');
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7);
+  }
+
+  return null; // Si no hay token
+};
 
 // Añadir un producto al carrito
 router.post('/productos/:id/agregar-carrito', async (req, res) => {
-    const { id } = req.params;
-    //const productos = await leerProductos();
-    //const producto = productos.find(p => p.id === id);
-    console.log('Authorization header:', req.headers.authorization);
-    const producto= await buscarProducto(id);
-    console.log(`hola ${producto.nombre}`);
-    if (!producto) {
-        return res.status(404).send('Producto no encontrado');
-    }
+  const { id } = req.params;
+  //const productos = await leerProductos();
+  //const producto = productos.find(p => p.id === id);
+  console.log('Authorization header:', req.headers.authorization);
+  const producto = await buscarProducto(id);
+  console.log(`hola ${producto.nombre}`);
+  if (!producto) {
+    return res.status(404).send('Producto no encontrado');
+  }
 
-    // Agregar el producto al carrito
-    agregarProductoAlCarrito(producto);
+  // Agregar el producto al carrito
+  agregarProductoAlCarrito(producto);
 
-    res.redirect('/productos');  // Redirigir a la vista del carrito
+  res.redirect('/productos');  // Redirigir a la vista del carrito
 });
 //const carrito=[];
 // Mostrar el carrito
 router.get('/', (req, res) => {
-    const carrito = obtenerCarrito();
-    res.render('carrito/carritoActual', { carrito});
+  const carrito = obtenerCarrito();
+  res.render('carrito/carritoActual', { carrito });
 });
 
 // Finalizar el pedido y guardarlo para el único usuario
@@ -67,7 +67,7 @@ router.get('/', (req, res) => {
 //     const productos = await leerProductos();
 //     carrito.forEach((productoSeleccionado) => {
 //         const producto = productos.find(p => p.id.toString() === productoSeleccionado.id.toString() );
-        
+
 //         if (!producto) {
 //             return res.status(404).send(`Producto con ID ${productoSeleccionado.id} no encontrado.`);
 //         }
@@ -79,7 +79,7 @@ router.get('/', (req, res) => {
 
 //         // Restar uno del stock
 //         producto.stock -= productoSeleccionado.cantidad;
-        
+
 //     });
 //     //await guardarProductos(productos);
 //     // Limpiar el carrito después de finalizar el pedido
@@ -97,39 +97,39 @@ router.get('/', (req, res) => {
 //       try {
 //         const user = req.user; // Usuario autenticado
 //         const carrito = obtenerCarrito(); // Obtén el carrito (suponiendo que es una función)
-  
+
 //         if (!carrito.length) {
 //           return res.status(400).send('El carrito está vacío.');
 //         }
-  
+
 //         // Guardar el pedido del usuario autenticado
 //         await guardarPedido(carrito, user._id);  
-  
+
 //         const productos = await leerProductos();
-  
+
 //         // Actualizar el stock de los productos seleccionados
 //         carrito.forEach((productoSeleccionado) => {
 //           const producto = productos.find(p => p.id.toString() === productoSeleccionado.id.toString());
-  
+
 //           if (!producto) {
 //             throw new Error(`Producto con ID ${productoSeleccionado.id} no encontrado.`);
 //           }
-  
+
 //           // Verificar que haya suficiente stock
 //           if (producto.stock < productoSeleccionado.cantidad) {
 //             throw new Error(`Stock insuficiente para ${producto.nombre}.`);
 //           }
-  
+
 //           // Restar la cantidad seleccionada del stock
 //           producto.stock -= productoSeleccionado.cantidad;
 //         });
-  
+
 //         // Guardar los cambios en los productos (asegúrate de implementar `guardarProductos`)
 //         await guardarProductos(productos);
-  
+
 //         // Limpiar el carrito después de finalizar el pedido
 //         carrito.length = 0; // Vacía el carrito
-  
+
 //         res.redirect('/productos');
 //       } catch (error) {
 //         console.error('Error al finalizar el pedido:', error);
@@ -138,16 +138,16 @@ router.get('/', (req, res) => {
 //     }
 //   );
 
-  router.post('/finalizar-pedido', async (request, response) => {
-    const body = request.body;
-    const token = getTokenFrom(request); // Obtén el token de la solicitud
-   
-    const decodedToken = jwt.verify(token, process.env.SECRET);
-    if (!token || !decodedToken.id) {
+router.post('/finalizar-pedido', async (request, response) => {
+  const body = request.body;
+  const token = getTokenFrom(request); // Obtén el token de la solicitud
+
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+  if (!token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' });
-    }
-   try{
-   //  const user = await User.findById(body.userId);
+  }
+  try {
+    //  const user = await User.findById(body.userId);
     const user = await User.findById(decodedToken.id);
 
     const carrito = obtenerCarrito(); // Obtén el carrito (suponiendo que es una función)
@@ -200,9 +200,9 @@ router.get('/', (req, res) => {
 /*router.get('/pedidos', async (req, res) => {
     const usuario = await leerUsuarios();
 
-    if (!usuario.pedidos.length) {
-        return res.render('pedidos/pedidos', { pedidos: [], mensaje: "No hay pedidos realizados." });
-    }
+  if (!usuario.pedidos.length) {
+    return res.render('pedidos/pedidos', { pedidos: [], mensaje: "No hay pedidos realizados." });
+  }
 
     res.render('pedidos/pedidos', { pedidos: usuario.pedidos });
 });*/router.get('/pedidos', async (req, res) => {
