@@ -7,6 +7,7 @@ const ObjectId = mongoose.Types.ObjectId; // Importar ObjectId
 
 // Mostrar todos los productos
 router.get('/', async (req, res) => {
+    const token = req.cookies.jwt; // Leer el token desde la cookie
     const { categoria } = req.query; // Obtener la categoría del query string
    let productos = await leerProductos();
  
@@ -21,7 +22,7 @@ router.get('/', async (req, res) => {
         productos = productos.filter(producto => producto.categoria === categoria);
     }
 
-    res.render('productos/usuario', { productos, categoria }); 
+    res.render('productos/usuario', { productos, categoria, token }); 
 });
 
 

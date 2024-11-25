@@ -11,7 +11,13 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const User = require("./models/user")
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const User = require('./models/User');
+require('dotenv').config();
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
 
 const bodyParser = require('body-parser')
 const app = express();
@@ -23,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 app.use(flash());
+app.use(cookieParser());
 
 const usuario = "comercio"
 const password = "1234"
@@ -113,6 +120,34 @@ app.use((req, res, next) => {
   res.locals.user = req.user; // `req.user` es establecido por Passport si el usuario está autenticado
   next();
 });
+
+const options = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.SECRET,
+};
+
+passport.use(
+  new JwtStrategy(options, async (jwtPayload, done) => {
+    try {
+      const user = await User.findById(jwtPayload.id);
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    } catch (error) {
+      return done(error, false);
+    }
+  })
+);
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000', // Cambia al dominio de tu frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
 const productoRoutes = require("./routes/productos");
 const usuarioRoutes = require("./routes/users");

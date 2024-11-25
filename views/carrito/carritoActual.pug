@@ -29,7 +29,7 @@ html
       - let total = carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
       p= `$${total.toFixed(2)}`
 
-      form(action="/carrito/finalizar-pedido" method="POST")
+      form(action=`/carrito/finalizar-pedido` method="POST")
         button.btn.btn-primary(type="submit") Finalizar Pedido
 
       .text-center.mt-4
