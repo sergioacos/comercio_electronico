@@ -189,15 +189,15 @@ router.get('/', (req, res) => {
     // user.posts = user.posts.concat(savedPost._id);
     // await user.save();
     // response.status(201).json(savedPost);
-    res.redirect('/productos');
+        response.redirect('/productos');
       } catch (error) {
         console.error('Error al finalizar el pedido:', error);
-        res.status(500).json({ error: error.message });
+        response.status(500).json({ error: error.message });
       }
    });
 
 // Mostrar los pedidos del usuario
-router.get('/pedidos', async (req, res) => {
+/*router.get('/pedidos', async (req, res) => {
     const usuario = await leerUsuarios();
 
     if (!usuario.pedidos.length) {
@@ -205,7 +205,51 @@ router.get('/pedidos', async (req, res) => {
     }
 
     res.render('pedidos/pedidos', { pedidos: usuario.pedidos });
-});
+});*/router.get('/pedidos', async (req, res) => {
+    try {
+        // Obtener todos los usuarios con sus pedidos asociados, incluyendo los productos de cada pedido
+        const users = await User.find({})
+            .populate({
+                path: 'pedidos',
+                populate: [
+                    {
+                        path: 'producto', // Poblamos los productos dentro del pedido
+                        model: 'Producto'
+                    },
+                    {
+                        path: 'user', // Poblamos la información del usuario
+                        model: 'User'
+                    }
+                ]
+            });
+
+        // Verificar si hay usuarios en la base de datos
+        if (users.length === 0) {
+            return res.render('pedidos/pedidos', { pedidos: [], mensaje: "No hay pedidos realizados." });
+        }
+
+        // Extraer todos los pedidos de todos los usuarios
+        const allPedidos = users.reduce((acc, user) => {
+            if (user.pedidos && user.pedidos.length > 0) {
+                acc.push(...user.pedidos);
+            }
+            return acc;
+        }, []);
+    
+
+        // Si no hay pedidos en general
+        if (allPedidos.length === 0) {
+            return res.render('pedidos/pedidos', { pedidos: [], mensaje: "No hay pedidos realizados." });
+        }
+
+        // Renderizar la vista con todos los pedidos encontrados
+        res.render('pedidos/pedidos', { pedidos: allPedidos, mensaje: null });
+    } catch (error) {
+        console.error('Error al obtener los pedidos:', error);
+        res.render('pedidos/pedidos', { pedidos: [], mensaje: "Error al cargar los pedidos." });
+    }
+}); 
+
 
 //module.exports ={router,carrito} ;
 module.exports = router;
