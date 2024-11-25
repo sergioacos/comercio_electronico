@@ -2,11 +2,15 @@ doctype html
 html
   head
     title Carrito de Compras
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js')
   body
-    h1 Carrito de Compras
+    h1.text-center.mt-5 Carrito de Compras
 
     if carrito.length > 0
-      table
+      table.table.table-bordered.table-hover
         thead
           tr
             th Producto
@@ -19,20 +23,25 @@ html
               td= producto.nombre
               td= producto.cantidad
               td= `$${producto.precio}`
-              td= `$${producto.precio * producto.cantidad}`
+              td= `$${(producto.precio * producto.cantidad).toFixed(2)}`
       hr
       h2 Total: 
       - let total = carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0)
-      p= `$${total}`
+      p= `$${total.toFixed(2)}`
 
-      form(action="/carrito/finalizar-pedido" method="POST")
+      form(action=`/carrito/finalizar-pedido` method="POST")
         button.btn.btn-primary(type="submit") Finalizar Pedido
 
-      a(href="/productos") Volver a la tienda
-    else
-      p No hay productos en el carrito.
-      a(href="/productos") Volver a la tienda
-  
-      //- Botón para pagar
       .text-center.mt-4
-        button.btn.btn-success(onclick="pagar()") Pagar
+        a.btn.btn-secondary(type="button", href="/productos") Volver a la tienda
+
+    else
+      p.text-center No hay productos en el carrito.
+      .text-center.mt-4
+        a.btn.btn-outline-primary(type="button", href="/productos") Volver a la tienda
+
+    // Si el mensaje está presente, mostramos un mensaje de éxito
+    if mensaje
+      .alert.alert-success.text-center.mt-4
+        p= mensaje
+        a.btn.btn-outline-primary(type="button", href="/productos") Volver a la tienda

@@ -1,7 +1,10 @@
 const fs = require("fs-extra");
 const path = require("path");
 const { leerUsuarios, guardarUsuarios } = require("./db-usuarios");
-
+//datos de mongo
+const Producto = require('../models/producto');
+const Pedido = require('../models/pedido');
+const User = require('../models/user')
 // Ruta del archivo JSON
 const filePath = path.join(__dirname, "productos.json");
 const filePathPedidos = path.join(__dirname, "pedidos.json");
@@ -10,11 +13,29 @@ const filePathPedidos = path.join(__dirname, "pedidos.json");
 // Leer productos desde el archivo JSON
 async function leerProductos() {
   try {
-    const data = await fs.readFile(filePath, "utf-8");
-    return JSON.parse(data);
+    //const data = await fs.readFile(filePath, "utf-8");
+    //return JSON.parse(data);
+    const data= await Producto.find();
+    return data
   } catch (error) {
     console.error("Error al leer el archivo:", error);
     return [];
+  }
+}
+async function editarProducto(id, body){
+  try {
+    
+    const productoActualizado= await Producto.findByIdAndUpdate({_id:id}, body,{useFindAndModify: false});
+    
+    if (!productoActualizado) {
+      console.error(`Producto con id ${id} no encontrado.`);
+      throw new Error('Producto no encontrado.');
+    }
+
+    return productoActualizado; // Devolver el producto actualizado
+  } catch (error) {
+    console.error('Error al actualizar el producto en la base de datos:', error);
+    throw error;
   }
 }
 
@@ -40,11 +61,33 @@ async function leerPedidos() {
     return [];
   }
 }
-
+// buscra 1 producto
+async function buscarProducto(id) {
+ // console.log("Buscar producto:", id);
+  try {
+    const productoBd = await Producto.findOne({ _id: id })
+    return productoBd
+} catch (error) {
+  return console.error("No se encontro el producto", error);
+  
+}
+}
 // Guardar productos en el archivo JSON
 async function guardarProductos(productos) {
   try {
-    await fs.writeFile(filePath, JSON.stringify(productos, null, 2), "utf-8");
+    //await fs.writeFile(filePath, JSON.stringify(productos, null, 2), "utf-8");
+    
+    const productoBd= new Producto(productos);
+    await productoBd.save();
+  } catch (error) {
+    console.error("Error al guardar en el archivo:", error);
+  }
+}
+async function eliminarProducto(id) {
+  try {
+   
+    const productoBd= await Producto.findByIdAndDelete({_id:id});
+    
   } catch (error) {
     console.error("Error al guardar en el archivo:", error);
   }
@@ -52,9 +95,14 @@ async function guardarProductos(productos) {
 
 let carrito = [];
 
-function agregarProductoAlCarrito(producto) {
-    const existeEnCarrito = carrito.find(p => p.id === producto.id);
-    
+function agregarProductoAlCarrito(productoM) {
+  
+  const producto = productoM.toObject();
+   // console.log("bd",producto.id)
+    const existeEnCarrito = carrito.find(p => p.id.toString() === producto.id.toString());
+    //console.log("si existe", existeEnCarrito);
+   // if(carrito.length > 1){
+    //  console.log("prod",carrito[1]);}
     if (existeEnCarrito) {
       //console.log("Agrego un producto cant:cantidad + 1");
         // Si el producto ya está en el carrito, incrementar la cantidad
@@ -65,6 +113,7 @@ function agregarProductoAlCarrito(producto) {
         carrito.push({ ...producto, cantidad: 1 });
         //console.log("Agrego un producto cant:1");
         //console.log(`Producto agregado: ${carrito.length}`);
+        //console.log(`Producto agregado: ${carrito[0].cantidad}`);
     }
 }
 
@@ -93,16 +142,44 @@ function obtenerCarrito() {
 }*/
 
 // Guardar un pedido en el carrito del único usuario
-async function guardarPedido(carrito) {
-  let usuario = await leerUsuarios();
-
-  // Agregar el carrito actual a la lista de pedidos del usuario
-  usuario.pedidos.push({
+async function guardarPedido(carrito,userId) {
+  //let usuario = await leerUsuarios();
+  
+  const listIdProd = (carrito) => {
+    return carrito.reduce((ids, prod) => {
+        
+        for (let i = 0; i < prod.cantidad; i++) {
+            ids.push(prod.id);
+        }
+        return ids;
+    }, []);
+  };
+  const idsDeProductos = listIdProd(carrito)
+  const pedido = new Pedido({
+    user: userId,
+    fecha: new Date(),
+    producto: idsDeProductos
+  });
+ 
+  const pedidoGuardado = await pedido.save();
+   // Agregar el carrito actual a la lista de pedidos del usuario
+ 
+  const user = await User.findById(userId); 
+  //user.pedidos = pedidoGuardado.id;
+  console.log(user);
+  user.pedidos = user.pedidos.concat(pedidoGuardado._id);
+if (user) {
+    // Ahora `user` debería ser un documento de Mongoose y debería tener el método `save`
+    await user.save();
+} else {
+    console.log('Usuario no encontrado');
+}
+/*  usuario.pedidos.push({
     fecha: new Date(),
     productos: carrito
   });
 
-  await guardarUsuarios(usuario);
+  await guardarUsuarios(usuario);*/
 }
 
 module.exports = {
@@ -112,5 +189,8 @@ module.exports = {
   agregarProductoAlCarrito,
   obtenerCarrito,
   guardarPedido,
+  eliminarProducto,
+  editarProducto, 
+  buscarProducto,
   //leerUsuario
 };

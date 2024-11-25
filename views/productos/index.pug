@@ -4,9 +4,9 @@ html
     title Lista de Productos
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css")
     script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
-    script. 
+    script.
       // Función para eliminar un producto
-      function eliminarProducto(id) {
+      function eliminarProductos(id) {
         if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
           
           axios.delete(`${id}/eliminar`)
@@ -28,6 +28,8 @@ html
       //- Botón para agregar un nuevo producto
       .text-end.mb-3
         a.btn.btn-success(href="/productos/nuevo") Añadir Nuevo Producto
+      .text-end.mb-3
+        a.btn.btn-success(href="/carrito/pedidos") Ver todos los pedidos
 
       //- Mostrar productos en un grid utilizando cards de Bootstrap
       .row.row-cols-1.row-cols-md-3.g-4
@@ -49,10 +51,16 @@ html
                 //- Botones para editar o eliminar el producto
                 .d-flex.justify-content-between.mt-3
                   a.btn.btn-primary(href=`/productos/${producto.id}/editar`) Editar
-                    //-form(action=`/productos/${producto.id}/eliminar` method="POST")
-                  button.btn.btn-danger(onclick=`eliminarProducto(${producto.id})` ) Eliminar
+                  button.btn.btn-danger(onclick=`eliminarProductos('${producto.id}')` ) Eliminar
 
-      //- Botón para volver a la página de inicio
+      //- Botón para volver a la página de inicio y al panel de administración, al lado
       .mt-5.text-center
-        a.btn.btn-secondary(href="/") Volver al Inicio
-      
+        .d-flex.justify-content-center
+          a.btn.btn-secondary.mx-2(href="/") Volver al Inicio
+          a.btn.btn-info.mx-2(href="/admin") Ir al Panel de Administración
+
+      // Estilo adicional para agregar un espacio en blanco debajo de los botones
+      style.
+        .d-flex.justify-content-center a {
+          margin-bottom: 20px;  
+        }

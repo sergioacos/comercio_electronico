@@ -1,15 +1,16 @@
 const express = require("express");
 const bcrypt = require("bcryptjs"); // Para hashear contraseñas
 const router = express.Router();
+const User = require("../models/User");  // Importa el modelo de usuario
 
-const { leerProductos, leerPedidos } = require("../data/db");
-const { leerUsuarios, guardarUsuarios } = require("../data/db-usuarios");
+const { leerProductos, leerPedidos } = require("../data/db");  // Asumiendo que estos aún usan archivos JSON o alguna fuente de datos
 
+// Mostrar lista de usuarios y otros datos
 router.get("/", async (req, res) => {
   try {
     const productos = await leerProductos();
     const pedidosAgrupados = await leerPedidos();
-    const usuarios = await leerUsuarios();
+    const usuarios = await User.find({});  // Usando Mongoose para obtener los usuarios desde MongoDB
     res.render("admin/index", { productos, pedidosAgrupados, usuarios });
   } catch (error) {
     console.error("Error al cargar la gestión:", error);
@@ -20,57 +21,67 @@ router.get("/", async (req, res) => {
 // Mostrar formulario de edición de un usuario
 router.get("/:id/editar", async (req, res) => {
   const { id } = req.params;
-  const usuarios = await leerUsuarios();
-  const usuario = usuarios.find((p) => p.id === parseInt(id));
+  try {
+    const usuario = await User.findById(id);  // Buscar el usuario por su ID
+    if (!usuario) {
+      return res.status(404).send("Usuario no encontrado");
+    }
 
-  if (!usuario) {
-    return res.status(404).send("Usuario no encontrado");
+    // Renderizar la vista de editar con los datos del usuario
+    res.render("admin/editar", { usuario });
+  } catch (error) {
+    console.error("Error al editar el usuario:", error);
+    res.status(500).send("Error al editar el usuario");
   }
-
-  // Renderizar la vista de editar con los datos del producto
-  res.render("admin/editar", { usuario });
 });
 
+// Actualizar el nombre de usuario y otros datos
 router.post("/:id/editar", async (req, res) => {
   const { id } = req.params;
-  const { name, email } = req.body;
+  const { username, name, email, password } = req.body;
 
   // Validación básica
-  if (!name || !email) {
-    return res.status(400).send("Nombre y email son requeridos");
+  if (!username || !name) {
+    return res.status(400).send("Nombre de usuario y nombre son requeridos");
   }
 
-  let usuarios = await leerUsuarios();
-  const usuarioIndex = usuarios.findIndex(
-    (usuario) => usuario.id === parseInt(id)
-  );
+  try {
+    // Buscar el usuario por su ID
+    const usuario = await User.findById(id);
+    if (!usuario) {
+      return res.status(404).send("Usuario no encontrado");
+    }
 
-  if (usuarioIndex === -1) {
-    return res.status(404).send("Usuario no encontrado");
+    // Actualizar la información del usuario
+    usuario.username = username;  // Cambiar el nombre de usuario
+    usuario.name = name;
+    usuario.email = email;
+
+    // Si hay nueva contraseña, la encriptamos
+    if (password) {
+      usuario.passwordHash = await bcrypt.hash(password, 10);  // Hasheamos la nueva contraseña
+    }
+
+    // Guardar los cambios
+    await usuario.save();
+    res.redirect("/admin"); // Redirigir al panel de administración
+  } catch (error) {
+    console.error("Error al actualizar el usuario:", error);
+    res.status(500).send("Error al actualizar el usuario");
   }
-
-  // Actualizar información del usuario
-  usuarios[usuarioIndex] = {
-    id: parseInt(id),
-    name,
-    email,
-    password: usuarios[usuarioIndex].password, // Retener la contraseña existente
-  };
-
-  await guardarUsuarios(usuarios);
-  res.redirect("/admin"); // Considera agregar un mensaje de éxito
 });
 
+// Eliminar usuario
 router.post("/:id/eliminar", async (req, res) => {
   const { id } = req.params;
-  let usuarios = await leerUsuarios();
-
-  // Filtrar el usuario que será eliminado
-  usuarios = usuarios.filter((usuario) => usuario.id !== parseInt(id));
-
-  await guardarUsuarios(usuarios);
-  res.redirect("/admin");
+  try {
+    // Eliminar el usuario por su ID
+    await User.findByIdAndDelete(id);
+    res.redirect("/admin"); // Redirigir al panel de administración
+  } catch (error) {
+    console.error("Error al eliminar el usuario:", error);
+    res.status(500).send("Error al eliminar el usuario");
+  }
 });
 
-//module.exports ={router,carrito} ;
-module.exports =router;
+module.exports = router;

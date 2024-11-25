@@ -25,18 +25,17 @@ html(lang="es")
                         each producto in productos
                             tr
                                 td= producto.nombre
-                                td=producto.precio
-                                td=producto.categoria
-                                td=producto.stock
+                                td= producto.precio
+                                td= producto.categoria
+                                td= producto.stock
                                 td
                                     a.btn-sm.btn-warning(href=`/productos/${producto.id}/editar`) Editar
                                     |
                                     form(action=`/productos/${producto.id}/eliminar` method="POST")
                                         button.btn.btn-sm.btn-danger.mt-2(type="submit") Eliminar
-                                
+                                 
             section#pedidos.mt-4
                 h2 Gestión de Pedidos
-
                 table.table.table-bordered
                     thead.thead-light
                         tr
@@ -49,11 +48,11 @@ html(lang="es")
                     tbody
                         each pedido in pedidosAgrupados
                             tr
-                                td=pedido.id
-                                td=pedido.nombre
-                                td=pedido.precio
-                                td=pedido.cantidad
-                                td=(pedido.cantidad * pedido.precio)
+                                td= pedido.id
+                                td= pedido.nombre
+                                td= pedido.precio
+                                td= pedido.cantidad
+                                td= (pedido.cantidad * pedido.precio)
                                 td: a.btn-sm.btn-warning(href='') Procesar
 
             section#usuarios.mt-4
@@ -63,19 +62,20 @@ html(lang="es")
                         tr
                             th ID
                             th Nombre
-                            th Email
+                            th Username 
                             th Acciones
                     tbody
                         each usuario in usuarios
                             tr
-                                td=usuario.id
-                                td=usuario.name
-                                td=usuario.email
+                                td= usuario.id
+                                td= usuario.name
+                                td= usuario.username 
                                 td
                                     a.btn-sm.btn-warning.mr-3(href=`/admin/${usuario.id}/editar`) Editar
                                     |
-                                    form(action=`admin/${usuario.id}/eliminar` method="POST")
+                                    form(action=`/admin/${usuario.id}/eliminar` method="POST")
                                         button.btn.btn-sm.btn-danger.mt-2(type="submit") Eliminar
-                //- Botón para volver a la página de inicio
+
+                // Botón para volver a la página de inicio
                 .mt-5.text-center
-                a.btn.btn-secondary(href="/") Volver al Inicio
+                    a.btn.btn-secondary(href="/") Volver al Inicio
