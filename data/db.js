@@ -166,7 +166,7 @@ async function guardarPedido(carrito,userId) {
  
   const user = await User.findById(userId); 
   //user.pedidos = pedidoGuardado.id;
-  console.log(user);
+  //console.log(user);
   user.pedidos = user.pedidos.concat(pedidoGuardado._id);
 if (user) {
     // Ahora `user` debería ser un documento de Mongoose y debería tener el método `save`
