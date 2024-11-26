@@ -30,7 +30,7 @@ usersRouter.post('/register', async (req, res) => {
         });
 
         const savedUser = await user.save();
-        console.log("Usuario registrado:", savedUser);
+        //console.log("Usuario registrado:", savedUser);
 
         res.redirect('/login');
     } catch (error) {
